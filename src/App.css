@@ -52,10 +52,10 @@
   .navbar{
     position: fixed;
   }
-  
-.hidden{
-  position: relative;
-  left: auto;
-}
+    
+  .hidden{
+    position: relative;
+    left: auto;
+  }
 
 }

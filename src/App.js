@@ -11,7 +11,6 @@ function App() {
 
   const handleHiddeNav = () => {
     setHiddeNav(!hiddeNav);
-    console.log("hiddeNav:", hiddeNav); ////
   };
 
   return (

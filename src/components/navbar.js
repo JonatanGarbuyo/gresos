@@ -1,6 +1,5 @@
 import "./navbar.css";
 import userAvatar from "../images/user-account-avatar.png";
-import logo from "../icons/fi-rr-chart-histogram.svg";
 import IconHome from "../icons/IconHome";
 import NavItem from "./navItem";
 import IconCreditCard from "../icons/iconCreditCard";
@@ -8,6 +7,7 @@ import IconDollar from "../icons/iconDollar";
 import IconSettings from "../icons/iconSettings";
 import IconPower from "../icons/iconPower";
 import IconCross from "../icons/iconCross";
+import IconLogoGresos from "../icons/logoGresos";
 
 export default function Navbar({ hiddeNav, handleHiddeNav }) {
   return (
@@ -16,7 +16,13 @@ export default function Navbar({ hiddeNav, handleHiddeNav }) {
       style={hiddeNav ? { left: "0px" } : { left: "-300px" }}
     >
       <div className="brand">
-        <img src={logo} className="logo" alt="Logo" />
+        <IconLogoGresos
+          className="logo"
+          height={"3rem"}
+          width={"3rem"}
+          fill="var(--yellow)"
+          alt="icon"
+        />
         <h3 className="title"> Gresos </h3>
         <div>
           <IconCross
