@@ -9,7 +9,7 @@ import IconSettings from "../icons/iconSettings";
 import IconPower from "../icons/iconPower";
 import IconCross from "../icons/iconCross";
 
-export default function Navbar({ hiddeNav, setHiddeNav }) {
+export default function Navbar({ hiddeNav, handleHiddeNav }) {
   return (
     <nav
       className="navbar"
@@ -20,12 +20,12 @@ export default function Navbar({ hiddeNav, setHiddeNav }) {
         <h3 className="title"> Gresos </h3>
         <div>
           <IconCross
-            onClick={() => setHiddeNav()}
+            onClick={handleHiddeNav}
             height={"1rem"}
             width={"1rem"}
             fill="var(--secondary)"
             alt="icon"
-            className={hiddeNav ? "icon " : "icon hideen"}
+            className={hiddeNav ? "icon " : "icon hidden"}
           />
         </div>
       </div>

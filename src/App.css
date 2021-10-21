@@ -30,44 +30,15 @@
 }
 
 
-.header {
-  height: var(--headerHeight);
-  background-color: var(--secondary);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 10px;
-}
-
-.header > img {
-  width: 2rem;
-  margin: auto 10px;
-  background-color: var(--secondary);
-}
-
 .icon {
   width: 1.5rem;
   margin: 10px;
 }
 
-.hideen{
+.hidden{
   position: fixed;
   left: -300px;
 }
-
-.profile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.profile > img { 
-  border-radius: 50%;
-  margin: 0.5rem;
-  max-width: 50px;
-}
-
 
 .footer{
   min-height: 10vh;
@@ -82,7 +53,7 @@
     position: fixed;
   }
   
-.hideen{
+.hidden{
   position: relative;
   left: auto;
 }
