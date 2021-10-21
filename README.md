@@ -1,3 +1,7 @@
+# Gresos
+Gresos is the application that I created for the Alkemy Full-Stack challenge.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

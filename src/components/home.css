@@ -1,0 +1,22 @@
+.home{
+  background-color: var(--grey);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.detalle{
+  flex: 1;
+  margin: 10px;
+  background-color: white;
+}
+
+
+
+/* media queries */
+@media (max-width: 768px) {
+  .home{
+    padding: 5px;
+  }
+}
