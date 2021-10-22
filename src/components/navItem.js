@@ -1,3 +1,4 @@
+import "./navItem.css";
 export default function NavItem({ destination = "#", title = "", Icon }) {
   return (
     <>

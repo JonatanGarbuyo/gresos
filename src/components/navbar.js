@@ -41,20 +41,20 @@ export default function Navbar({ hiddeNav, handleHiddeNav }) {
         <h4>Username</h4>
       </div>
 
-      <ul>
-        <li>
+      <ul className="navbar_item_list">
+        <li className="navbar_item">
           <NavItem destination="#" title="Home" Icon={IconHome} />
         </li>
-        <li>
+        <li className="navbar_item">
           <NavItem destination="#" title="Expenses" Icon={IconCreditCard} />
         </li>
-        <li>
+        <li className="navbar_item">
           <NavItem destination="#" title="Income" Icon={IconDollar} />
         </li>
-        <li>
+        <li className="navbar_item">
           <NavItem destination="#" title="Categories" Icon={IconSettings} />
         </li>
-        <li>
+        <li className="navbar_item">
           <NavItem destination="#" title="Logout" Icon={IconPower} />
         </li>
       </ul>

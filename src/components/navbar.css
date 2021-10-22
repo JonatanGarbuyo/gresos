@@ -23,21 +23,18 @@
 }
 
 
-ul{
+.navbar_item_list {
   list-style-type: none;
   padding: 0;
   width: 100%;
   text-align: left;
 }
 
-li {
+.navbar_item {
   display:flex;
   flex-direction: row;
   align-items: center;
   min-height: 2rem;
 }
 
-a{
-  color: var(--white);
-  text-decoration: none;
-}
+ 
