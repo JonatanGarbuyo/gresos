@@ -1,7 +1,7 @@
 import "./home.css";
 import IconCreditCard from "../icons/iconCreditCard";
 import IconDollar from "../icons/iconDollar";
-import Card from "./card";
+import Card from "../components/card";
 
 const homeResume = {
   Balance: "6,277.30",

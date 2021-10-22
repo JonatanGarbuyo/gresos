@@ -1,4 +1,5 @@
 import "./navbar.css";
+
 import userAvatar from "../images/user-account-avatar.png";
 import IconHome from "../icons/IconHome";
 import NavItem from "./navItem";
@@ -43,19 +44,27 @@ export default function Navbar({ hiddeNav, handleHiddeNav }) {
 
       <ul className="navbar_item_list">
         <li className="navbar_item">
-          <NavItem destination="#" title="Home" Icon={IconHome} />
+          <NavItem destination="/" title="Home" Icon={IconHome} />
         </li>
         <li className="navbar_item">
-          <NavItem destination="#" title="Expenses" Icon={IconCreditCard} />
+          <NavItem
+            destination="/expenses"
+            title="Expenses"
+            Icon={IconCreditCard}
+          />
         </li>
         <li className="navbar_item">
-          <NavItem destination="#" title="Income" Icon={IconDollar} />
+          <NavItem destination="/income" title="Income" Icon={IconDollar} />
         </li>
         <li className="navbar_item">
-          <NavItem destination="#" title="Categories" Icon={IconSettings} />
+          <NavItem
+            destination="/categories"
+            title="Categories"
+            Icon={IconSettings}
+          />
         </li>
         <li className="navbar_item">
-          <NavItem destination="#" title="Logout" Icon={IconPower} />
+          <NavItem destination="/logout" title="Logout" Icon={IconPower} />
         </li>
       </ul>
     </nav>

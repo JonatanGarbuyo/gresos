@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 import "./navItem.css";
+
 export default function NavItem({ destination = "#", title = "", Icon }) {
   return (
     <>
@@ -9,9 +12,9 @@ export default function NavItem({ destination = "#", title = "", Icon }) {
         alt="icon"
         className="icon"
       />
-      <a href={`${destination}`} title={title}>
+      <Link to={`${destination}`} title={title}>
         {title}
-      </a>
+      </Link>
     </>
   );
 }
