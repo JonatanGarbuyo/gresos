@@ -7,8 +7,10 @@ import { useState } from "react";
 import IconEdit from "../icons/iconEdit";
 import IconDelete from "../icons/iconDelete";
 import IconAdd from "../icons/iconAdd";
+import NewEntryForm from "../forms/newEntryForm";
 
 export default function Income() {
+  const [showForm, setShowForm] = useState(false);
   const [allIncome, setAllIncome] = useState([
     {
       id: 6,
@@ -47,15 +49,14 @@ export default function Income() {
           Icon={IconDollar}
         ></Card>
 
-        <Link to="/new/income" className="addButton">
-          <IconAdd
-            alt="icon"
-            height={"2.5rem"}
-            width={"2.5rem"}
-            fill="green"
-            className=""
-          />
-        </Link>
+        <IconAdd
+          alt="icon"
+          height={"2.5rem"}
+          width={"2.5rem"}
+          fill="green"
+          className="addButton"
+          onClick={() => setShowForm(true)}
+        />
       </div>
 
       <div className="resume">
@@ -69,6 +70,12 @@ export default function Income() {
             <li className="detail cell_header">amount</li>
             <li className="detail cell_header"></li>
           </div>
+
+          <NewEntryForm
+            entryType="income"
+            className={showForm ? "detail detail_row" : "form_hidden"}
+          />
+
           {allIncome.map(({ amount, category, concept, date, id, type }) => {
             return (
               <div className="detail detail_row" key={id}>

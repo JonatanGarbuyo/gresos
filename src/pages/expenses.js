@@ -7,8 +7,10 @@ import IconCreditCard from "../icons/iconCreditCard";
 import IconEdit from "../icons/iconEdit";
 import IconDelete from "../icons/iconDelete";
 import IconAdd from "../icons/iconAdd";
+import NewEntryForm from "../forms/newEntryForm";
 
 export default function Expenses() {
+  const [showForm, setShowForm] = useState(false);
   const [allExpenses, setAllExpenses] = useState([
     {
       id: 10,
@@ -95,15 +97,14 @@ export default function Expenses() {
           Icon={IconCreditCard}
         />
 
-        <Link to="/new/expense" className="addButton">
-          <IconAdd
-            alt="icon"
-            height={"2.5rem"}
-            width={"2.5rem"}
-            fill="green"
-            className=""
-          />
-        </Link>
+        <IconAdd
+          alt="icon"
+          height={"2.5rem"}
+          width={"2.5rem"}
+          fill="green"
+          className="addButton"
+          onClick={() => setShowForm(true)}
+        />
       </div>
 
       <div className="resume">
@@ -117,6 +118,12 @@ export default function Expenses() {
             <li className="detail cell_header">amount</li>
             <li className="detail cell_header"></li>
           </div>
+
+          <NewEntryForm
+            entryType="expense"
+            className={showForm ? "detail detail_row" : "form_hidden"}
+          />
+
           {allExpenses.map(({ amount, category, concept, date, id, type }) => {
             return (
               <div className="detail detail_row" key={id}>
