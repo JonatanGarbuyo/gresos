@@ -7,6 +7,16 @@
   overflow: scroll;
 }
 
+.card_container{
+  min-height: 100px;
+  flex-grow: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  /* max-width: 380px; */
+}
+
 .detail{ 
   padding: 0px;
   margin: 0px;
@@ -38,6 +48,19 @@
   grid-auto-rows: minmax(30px, auto);
 }
 
+.detail_row_category{
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-auto-rows: minmax(30px, auto);
+}
+/* 
+.card_container_categories {
+ 
+} */
+.addButton{
+  position: absolute;
+  right: 0;
+  margin-right: 2.5rem;
+}
 
 .resume{
   min-width: 500px;
@@ -63,7 +86,6 @@
   border-top: solid 1px var(--secondary);
   border-left: solid 1px var(--secondary);
 }
-
 
 .icon_edit {
   margin-right: 0.5rem;
@@ -135,6 +157,12 @@
   .page_container{
     padding: 5px;
   }
+
+  .addButton{
+    position: relative;
+  }
+
+
   .login_container {
     margin: 0.5rem 0px;
     padding: 1rem;

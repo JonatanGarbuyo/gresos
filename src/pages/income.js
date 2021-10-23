@@ -47,20 +47,15 @@ export default function Income() {
           Icon={IconDollar}
         ></Card>
 
-        <div className="card">
-          <div>
-            <div className="amount">add Entry</div>
-          </div>
-          <Link to="/new">
-            <IconAdd
-              alt="icon"
-              height={"2.5rem"}
-              width={"2.5rem"}
-              fill="green"
-              className=""
-            />
-          </Link>
-        </div>
+        <Link to="/new/income" className="addButton">
+          <IconAdd
+            alt="icon"
+            height={"2.5rem"}
+            width={"2.5rem"}
+            fill="green"
+            className=""
+          />
+        </Link>
       </div>
 
       <div className="resume">
