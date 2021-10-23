@@ -62,16 +62,7 @@
 .cell{
   border-top: solid 1px var(--secondary);
   border-left: solid 1px var(--secondary);
-/*   
-  border: 1px solid;
-  margin: 0 -1px -1px 0;
-  counter-increment: listCounter; */
 }
-
-
-
-
-
 
 
 /* media queries */
