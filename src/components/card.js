@@ -9,11 +9,11 @@ export default function Card({ amount = "0.00", title = "", Icon }) {
       </div>
       {
         <Icon
+          alt="icon"
           height={"2.5rem"}
           width={"2.5rem"}
           fill="var(--secondary)"
           className=""
-          alt="icon"
         />
       }
     </div>

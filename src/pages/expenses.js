@@ -6,6 +6,7 @@ import Card from "../components/card";
 import IconCreditCard from "../icons/iconCreditCard";
 import IconEdit from "../icons/iconEdit";
 import IconDelete from "../icons/iconDelete";
+import IconAdd from "../icons/iconAdd";
 
 export default function Expenses() {
   const [allExpenses, setAllExpenses] = useState([
@@ -93,7 +94,21 @@ export default function Expenses() {
           title="Total Expenses"
           Icon={IconCreditCard}
         />
-        {/* <Link to="newEntry">add Entry</Link> */}
+
+        <div className="card">
+          <div>
+            <div className="amount">add Entry</div>
+          </div>
+          <Link to="/new">
+            <IconAdd
+              alt="icon"
+              height={"2.5rem"}
+              width={"2.5rem"}
+              fill="green"
+              className=""
+            />
+          </Link>
+        </div>
       </div>
 
       <div className="resume">
