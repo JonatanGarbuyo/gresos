@@ -1,4 +1,7 @@
 import "./styles.css";
+
+import LoginForm from "../forms/loginForm";
+
 import IconLogoGresos from "../icons/logoGresos";
 import userAvatar from "../images/user-account-avatar.png";
 
@@ -15,16 +18,10 @@ export default function Login() {
         />
         <h1>Gresos</h1>
       </header>
-
       <div className="login_container">
         <img src={userAvatar} alt="avatar" className="login_avatar" />
         <h1>Login</h1>
-        <form className="login_form">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username"></input>
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password"></input>
-        </form>
+        <LoginForm className="login_form" />
       </div>
     </main>
   );

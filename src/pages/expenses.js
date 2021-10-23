@@ -1,7 +1,6 @@
 import "./styles.css";
 import IconCreditCard from "../icons/iconCreditCard";
 import Card from "../components/card";
-import { Link } from "react-router-dom";
 
 export default function Expenses() {
   const allExpenses = [
