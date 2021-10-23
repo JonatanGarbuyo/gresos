@@ -1,4 +1,4 @@
-import "./expenses.css";
+import "./styles.css";
 import IconCreditCard from "../icons/iconCreditCard";
 import Card from "../components/card";
 import { Link } from "react-router-dom";
@@ -72,7 +72,7 @@ export default function Expenses() {
   ];
 
   return (
-    <main className="expenses">
+    <main className="page_container">
       <div className="card_container">
         <Card amount="1,250.00" title="Total Expenses" Icon={IconCreditCard} />
         {/* <Link to="newEntry">add Entry</Link> */}

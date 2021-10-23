@@ -1,4 +1,4 @@
-.home{
+.page_container{
   background-color: var(--grey);
   flex-grow: 1;
   display: flex;
@@ -76,7 +76,7 @@
 
 /* media queries */
 @media (max-width: 768px) {
-  .home{
+  .page_container{
     padding: 5px;
   }
 }

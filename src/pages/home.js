@@ -1,4 +1,4 @@
-import "./home.css";
+import "./styles.css";
 import IconCreditCard from "../icons/iconCreditCard";
 import IconDollar from "../icons/iconDollar";
 import Card from "../components/card";
@@ -93,7 +93,7 @@ const homeResume = {
 
 export default function Home() {
   return (
-    <main className="home">
+    <main className="page_container">
       <div className="card_container">
         <Card amount="6,277.30" title="Balance" Icon={IconDollar} />
         <Card amount="1,250.00" title="Total Expenses" Icon={IconCreditCard} />
