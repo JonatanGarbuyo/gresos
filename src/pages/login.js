@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./login.css";
 
 import LoginForm from "../forms/loginForm";
 
