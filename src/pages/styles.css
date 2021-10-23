@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
+  overflow: scroll;
 }
 
 .detail{ 
@@ -39,6 +40,7 @@
 
 
 .resume{
+  min-width: 500px;
   flex: 1;
   margin: 10px;
   background-color: white;
@@ -63,6 +65,12 @@
 }
 
 
+.icon_edit {
+  margin-right: 0.5rem;
+}
+
+
+/* Login page */
 .login_header {
   border-radius: 10px;
   height: var(--headerHeight);

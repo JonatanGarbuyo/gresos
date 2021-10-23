@@ -1,6 +1,9 @@
 import "./styles.css";
 import IconCreditCard from "../icons/iconCreditCard";
 import Card from "../components/card";
+import { Link } from "react-router-dom";
+import IconEdit from "../icons/iconEdit";
+import IconDelete from "../icons/iconDelete";
 
 export default function Expenses() {
   const allExpenses = [
@@ -81,22 +84,41 @@ export default function Expenses() {
         <h2 className="resume_title">Expenses</h2>
         <ul className="detail detail_container">
           <div className="detail detail_header">
-            <li className="detail cell_header">id</li>
             <li className="detail cell_header">date</li>
             <li className="detail cell_header">concept</li>
             <li className="detail cell_header">category</li>
             <li className="detail cell_header">type</li>
             <li className="detail cell_header">amount</li>
+            <li className="detail cell_header"></li>
           </div>
           {allExpenses.map((expense) => {
             return (
               <div className="detail detail_row" key={expense.id}>
-                <li className="cell">{expense.id}</li>
                 <li className="cell">{expense.date}</li>
                 <li className="cell">{expense.concept}</li>
                 <li className="cell">{expense.category}</li>
                 <li className="cell">{expense.type}</li>
                 <li className="cell">{expense.amount}</li>
+                <li className="cell">
+                  <Link>
+                    <IconEdit
+                      height={"100%"}
+                      width={"1.5rem"}
+                      fill="var(--primary)"
+                      alt="icon"
+                      className="icon_edit"
+                    />
+                  </Link>
+                  <Link>
+                    <IconDelete
+                      height={"100%"}
+                      width={"1.5rem"}
+                      fill="var(--primary)"
+                      alt="icon"
+                      className="icon_edit"
+                    />
+                  </Link>
+                </li>
               </div>
             );
           })}
