@@ -107,16 +107,16 @@ export default function Expenses() {
             <li className="detail cell_header">amount</li>
             <li className="detail cell_header"></li>
           </div>
-          {allExpenses.map((expense) => {
+          {allExpenses.map(({ amount, category, concept, date, id, type }) => {
             return (
-              <div className="detail detail_row" key={expense.id}>
-                <li className="cell">{expense.date}</li>
-                <li className="cell">{expense.concept}</li>
-                <li className="cell">{expense.category}</li>
-                <li className="cell">{expense.type}</li>
-                <li className="cell">{expense.amount}</li>
+              <div className="detail detail_row" key={id}>
+                <li className="cell">{date}</li>
+                <li className="cell">{concept}</li>
+                <li className="cell">{category}</li>
+                <li className="cell">{type}</li>
+                <li className="cell">{amount}</li>
                 <li className="cell">
-                  <Link to={`/edit/${expense.id}`}>
+                  <Link to={`/edit/${id}`}>
                     <IconEdit
                       height={"100%"}
                       width={"1.5rem"}
@@ -126,7 +126,7 @@ export default function Expenses() {
                     />
                   </Link>
                   <IconDelete
-                    onClick={() => handleDeleteOperation(expense.id)}
+                    onClick={() => handleDeleteOperation(id)}
                     height={"100%"}
                     width={"1.5rem"}
                     fill="var(--primary)"
