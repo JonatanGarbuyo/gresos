@@ -14,7 +14,7 @@ export default function Header({ handleHiddeNav }) {
       />
       <div></div>
       <div className="profile">
-        <img src={userAvatar} alt="avvatar" />
+        <img src={userAvatar} alt="avatar" />
         <h3> Username </h3>
       </div>
     </header>

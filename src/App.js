@@ -21,28 +21,35 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar hiddeNav={hiddeNav} handleHiddeNav={handleHiddeNav} />
-        <div className="container">
-          <Header handleHiddeNav={handleHiddeNav} />
-          <Switch>
-            <Route path="/expenses">
-              <Expenses />
-            </Route>
-            <Route path="/income">
-              <Income />
-            </Route>
-            <Route path="/categories">
-              <Categories />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-            {/* <Route path="/">
-          <Home />
-        </Route> */}
-          </Switch>
-          <footer className="footer">footer</footer>
-        </div>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route>
+            <Navbar hiddeNav={hiddeNav} handleHiddeNav={handleHiddeNav} />
+            <div className="container">
+              <Header handleHiddeNav={handleHiddeNav} />
+              <Switch>
+                <Route path="/expenses">
+                  <Expenses />
+                </Route>
+                <Route path="/income">
+                  <Income />
+                </Route>
+                <Route path="/categories">
+                  <Categories />
+                </Route>
+                <Route path="/">
+                  <Home />
+                </Route>
+                {/* <Route path="/">
+                  <Home />
+                </Route> */}
+              </Switch>
+              <footer className="footer">footer</footer>
+            </div>
+          </Route>
+        </Switch>
       </BrowserRouter>
     </div>
   );
