@@ -1,12 +1,14 @@
 import "./styles.css";
-import IconCreditCard from "../icons/iconCreditCard";
-import Card from "../components/card";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import Card from "../components/card";
+import IconCreditCard from "../icons/iconCreditCard";
 import IconEdit from "../icons/iconEdit";
 import IconDelete from "../icons/iconDelete";
 
 export default function Expenses() {
-  const allExpenses = [
+  const [allExpenses, setAllExpenses] = useState([
     {
       id: 10,
       concept: "Pizza",
@@ -71,12 +73,26 @@ export default function Expenses() {
       type: "expense",
       category: "rent",
     },
-  ];
+  ]);
+
+  const totalExpenses = allExpenses.reduce((total, expense) => {
+    total -= parseFloat(expense.amount);
+    return total;
+  }, 0);
+
+  const handleDeleteOperation = (id) => {
+    console.log("ID: ", id);
+    setAllExpenses(allExpenses.filter((expense) => expense.id !== id));
+  };
 
   return (
     <main className="page_container">
       <div className="card_container">
-        <Card amount="1,250.00" title="Total Expenses" Icon={IconCreditCard} />
+        <Card
+          amount={totalExpenses}
+          title="Total Expenses"
+          Icon={IconCreditCard}
+        />
         {/* <Link to="newEntry">add Entry</Link> */}
       </div>
 
@@ -100,7 +116,7 @@ export default function Expenses() {
                 <li className="cell">{expense.type}</li>
                 <li className="cell">{expense.amount}</li>
                 <li className="cell">
-                  <Link>
+                  <Link to={`/edit/${expense.id}`}>
                     <IconEdit
                       height={"100%"}
                       width={"1.5rem"}
@@ -109,15 +125,14 @@ export default function Expenses() {
                       className="icon_edit"
                     />
                   </Link>
-                  <Link>
-                    <IconDelete
-                      height={"100%"}
-                      width={"1.5rem"}
-                      fill="var(--primary)"
-                      alt="icon"
-                      className="icon_edit"
-                    />
-                  </Link>
+                  <IconDelete
+                    onClick={() => handleDeleteOperation(expense.id)}
+                    height={"100%"}
+                    width={"1.5rem"}
+                    fill="var(--primary)"
+                    alt="icon"
+                    className="icon_edit"
+                  />
                 </li>
               </div>
             );
