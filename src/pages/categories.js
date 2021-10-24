@@ -42,7 +42,9 @@ export default function Categories() {
           </div>
 
           <NewCategoryForm
+            setShowForm={setShowForm}
             className={showForm ? "detail detail_row_category" : "form_hidden"}
+            inputClassName="form_cell"
           />
 
           {categories.map(({ id, title }) => {

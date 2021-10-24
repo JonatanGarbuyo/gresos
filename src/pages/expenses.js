@@ -109,30 +109,31 @@ export default function Expenses() {
 
       <div className="resume">
         <h2 className="resume_title">Expenses</h2>
-        <ul className="detail detail_container">
+        <div className="detail detail_container">
           <div className="detail detail_header">
-            <li className="detail cell_header">date</li>
-            <li className="detail cell_header">concept</li>
-            <li className="detail cell_header">category</li>
-            <li className="detail cell_header">type</li>
-            <li className="detail cell_header">amount</li>
-            <li className="detail cell_header"></li>
+            <div className="detail cell_header">date</div>
+            <div className="detail cell_header">concept</div>
+            <div className="detail cell_header">category</div>
+            <div className="detail cell_header">type</div>
+            <div className="detail cell_header">amount</div>
+            <div className="detail cell_header"></div>
           </div>
 
           <NewEntryForm
             entryType="expense"
             className={showForm ? "detail detail_row" : "form_hidden"}
+            setShowForm={setShowForm}
           />
 
           {allExpenses.map(({ amount, category, concept, date, id, type }) => {
             return (
               <div className="detail detail_row" key={id}>
-                <li className="cell">{date}</li>
-                <li className="cell">{concept}</li>
-                <li className="cell">{category}</li>
-                <li className="cell">{type}</li>
-                <li className="cell">{amount}</li>
-                <li className="cell">
+                <div className="cell">{date}</div>
+                <div className="cell">{concept}</div>
+                <div className="cell">{category}</div>
+                <div className="cell">{type}</div>
+                <div className="cell">{amount}</div>
+                <div className="cell">
                   <Link to={`/edit/${id}`}>
                     <IconEdit
                       height={"100%"}
@@ -150,11 +151,11 @@ export default function Expenses() {
                     alt="icon"
                     className="icon_edit"
                   />
-                </li>
+                </div>
               </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     </main>
   );
