@@ -12,17 +12,16 @@ const validationSchema = Yup.object().shape({
   amount: Yup.number().required().label("Amount"),
 });
 
-const allCategories = {
-  expense: [
-    { name: "food" },
-    { name: "clothes" },
-    { name: "other" },
-    { name: "rent" },
-  ],
-  income: [{ name: "salary" }, { name: "gift" }],
-};
+export default function NewEntryForm({
+  entryType,
+  setShowForm,
+  allCategories,
+  ...props
+}) {
+  const categoryOptions = allCategories
+    .filter((category) => category)
+    .map((category) => <option>{category}</option>);
 
-export default function NewEntryForm({ entryType, setShowForm, ...props }) {
   return (
     <Formik
       initialValues={{ date: "", concept: "", category: "", amount: 0 }}
@@ -34,16 +33,7 @@ export default function NewEntryForm({ entryType, setShowForm, ...props }) {
         }, 400);
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        resetForm,
-      }) => (
+      {({ values, errors, touched, isSubmitting, resetForm }) => (
         <Form {...props}>
           <div className="cell form_cell">
             <Field className="form_input" type="date" name="date" />
@@ -56,9 +46,7 @@ export default function NewEntryForm({ entryType, setShowForm, ...props }) {
           <div className="cell form_cell">
             <Field as="select" className="form_input" name="category">
               <option></option>
-              {allCategories[entryType].map(({ name }) => (
-                <option>{name}</option>
-              ))}
+              {categoryOptions}
             </Field>
           </div>
           <div className="cell form_cell">

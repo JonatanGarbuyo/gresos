@@ -6,14 +6,16 @@ import IconDelete from "../icons/iconDelete";
 import IconEdit from "../icons/iconEdit";
 import "./styles.css";
 
+const allCategories = [
+  { id: 1, title: "food" },
+  { id: 2, title: "clothes" },
+  { id: 3, title: "rent" },
+  { id: 4, title: "others" },
+];
+
 export default function Categories() {
   const [showForm, setShowForm] = useState(false);
-  const [categories, setCategories] = useState([
-    { id: 1, title: "food" },
-    { id: 2, title: "clothes" },
-    { id: 3, title: "rent" },
-    { id: 4, title: "others" },
-  ]);
+  const [categories, setCategories] = useState(allCategories);
 
   const handleDeleteCategory = (id) => {
     console.log("ID: ", id);

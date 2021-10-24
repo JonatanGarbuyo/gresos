@@ -74,6 +74,7 @@ export default function Income() {
           </div>
 
           <NewEntryForm
+            allCategories={allIncome.map((income) => income.category)}
             entryType="income"
             className={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}

@@ -122,6 +122,7 @@ export default function Expenses() {
           </div>
 
           <NewEntryForm
+            allCategories={exprenses.map((expense) => expense.category)}
             entryType="expense"
             className={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
