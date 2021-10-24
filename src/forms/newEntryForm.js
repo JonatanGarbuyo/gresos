@@ -6,7 +6,10 @@ import IconCrossCircle from "../icons/iconCrossCircle";
 
 const validationSchema = Yup.object().shape({
   date: Yup.date().required().label("Date"),
-  concept: Yup.string().required().min(3).max(250).label("Concept"),
+  concept: Yup.string().required().max(64).label("Concept"),
+  category: Yup.string().max(24).label("Category"),
+  type: Yup.string().required().max(8).label("Type"),
+  amount: Yup.number().required().label("Amount"),
 });
 
 const allCategories = {
@@ -42,15 +45,15 @@ export default function NewEntryForm({ entryType, setShowForm, ...props }) {
         resetForm,
       }) => (
         <Form {...props}>
-          {errors.password && touched.password && errors.password}
-
-          <div className="cell">
+          <div className="cell form_cell">
             <Field className="form_input" type="date" name="date" />
+            {errors.date && touched.date && errors.date}
           </div>
-          <div className="cell">
+          <div className="cell form_cell">
             <Field className="form_input" type="text" name="concept" />
+            {errors.concept && touched.concept && errors.concept}
           </div>
-          <div className="cell">
+          <div className="cell form_cell">
             <Field as="select" className="form_input" name="category">
               <option></option>
               {allCategories[entryType].map(({ name }) => (
@@ -58,7 +61,7 @@ export default function NewEntryForm({ entryType, setShowForm, ...props }) {
               ))}
             </Field>
           </div>
-          <div className="cell">
+          <div className="cell form_cell">
             <Field
               className="form_input"
               type="text"
@@ -66,10 +69,11 @@ export default function NewEntryForm({ entryType, setShowForm, ...props }) {
               value={entryType}
             />
           </div>
-          <div className="cell">
+          <div className="cell form_cell">
             <Field className="form_input" type="number" name="amount" />
+            {errors.amount && touched.amount && errors.amount}
           </div>
-          <div className="cell">
+          <div className="cell form_cell">
             <button
               type="submit"
               disabled={isSubmitting}

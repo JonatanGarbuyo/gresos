@@ -89,15 +89,20 @@
 .form_hidden {
   display: none;
 }
+.form_cell{
+  color: red;
+}
 .form_input {
   border-style: none;
-  height: 90%;
+  height: 2rem;
+  width: 90%;
 }
 .form_input_button{
   border: none;
   background-color: transparent;
   height: 100%;
 }
+
 .icon_edit {
   margin-right: 0.5rem;
 }
