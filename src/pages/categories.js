@@ -39,7 +39,7 @@ export default function Categories() {
         <h2 className="resume_title">Categories</h2>
         <ul className="detail detail_container">
           <div className="detail cell_header detail_row_category">
-            <li className="cell ">category</li>
+            <li className="cell ">Name</li>
             <li className="cell "></li>
           </div>
 
