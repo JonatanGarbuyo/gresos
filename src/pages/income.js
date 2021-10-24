@@ -9,26 +9,28 @@ import IconDelete from "../icons/iconDelete";
 import IconAdd from "../icons/iconAdd";
 import NewEntryForm from "../forms/newEntryForm";
 
+const income = [
+  {
+    id: 6,
+    concept: "grandma gift",
+    amount: "200",
+    date: "october 7, 2021",
+    type: "income",
+    category: "",
+  },
+  {
+    id: 3,
+    concept: "paycheck",
+    amount: "2500",
+    date: "october 1, 2021",
+    type: "income",
+    category: "salary",
+  },
+];
+
 export default function Income() {
   const [showForm, setShowForm] = useState(false);
-  const [allIncome, setAllIncome] = useState([
-    {
-      id: 6,
-      concept: "grandma gift",
-      amount: "200",
-      date: "october 7, 2021",
-      type: "income",
-      category: "",
-    },
-    {
-      id: 3,
-      concept: "paycheck",
-      amount: "2500",
-      date: "october 1, 2021",
-      type: "income",
-      category: "salary",
-    },
-  ]);
+  const [allIncome, setAllIncome] = useState(income);
 
   const totalIncome = allIncome.reduce((total, expense) => {
     total += parseFloat(expense.amount);
