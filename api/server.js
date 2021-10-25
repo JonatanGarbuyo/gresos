@@ -4,6 +4,7 @@ import cors from "cors";
 import logger from "./middleware/logger.js";
 import categoriesRouter from "./routes/categories.js";
 import resumeRouter from "./routes/resume.js";
+import transactionsRouter from "./routes/transactions.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(logger);
 // Routes
 app.use("/api/resume", resumeRouter);
 app.use("/api/categories", categoriesRouter);
+app.use("/api/transactions", transactionsRouter);
 
 //
 app.get("/", (req, res) => {

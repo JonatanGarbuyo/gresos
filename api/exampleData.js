@@ -6,7 +6,7 @@ export const homeResume = {
     {
       id: 10,
       concept: "Pizza",
-      amount: "-24.99",
+      amount: "24.99",
       date: "october 21, 2021",
       type: "expense",
       category: "food",
@@ -14,7 +14,7 @@ export const homeResume = {
     {
       id: 9,
       concept: "New game",
-      amount: "-65",
+      amount: "65",
       date: "october 18, 2021",
       type: "expense",
       category: "other",
@@ -22,7 +22,7 @@ export const homeResume = {
     {
       id: 8,
       concept: "Electricity  bill",
-      amount: "-500",
+      amount: "500",
       date: "october 8, 2021",
       type: "expense",
       category: "bills",
@@ -30,7 +30,7 @@ export const homeResume = {
     {
       id: 7,
       concept: "phone bill",
-      amount: "-33",
+      amount: "33",
       date: "october 8, 2021",
       type: "expense",
       category: "bills",
@@ -46,7 +46,7 @@ export const homeResume = {
     {
       id: 5,
       concept: "lunch",
-      amount: "-20",
+      amount: "20",
       date: "october 5, 2021",
       type: "expense",
       category: "food",
@@ -54,7 +54,7 @@ export const homeResume = {
     {
       id: 4,
       concept: "I loaded gasoline",
-      amount: "-150",
+      amount: "150",
       date: "october 4, 2021",
       type: "expense",
       category: "gas",
@@ -70,7 +70,7 @@ export const homeResume = {
     {
       id: 2,
       concept: "New suit",
-      amount: "-300",
+      amount: "300",
       date: "october 1, 2021",
       type: "expense",
       category: "clothes",
@@ -78,7 +78,7 @@ export const homeResume = {
     {
       id: 1,
       concept: "October rent",
-      amount: "-600",
+      amount: "600",
       date: "october 1, 2021",
       type: "expense",
       category: "rent",
