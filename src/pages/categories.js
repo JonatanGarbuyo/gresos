@@ -12,7 +12,7 @@ import "./styles.css";
 
 export default function Categories() {
   const [showForm, setShowForm] = useState(false);
-  const [categories, deleteCategory] = useCategories();
+  const [categories, deleteCategory, addCategory] = useCategories();
 
   return (
     <main className="page_container">
@@ -36,6 +36,7 @@ export default function Categories() {
           </div>
 
           <NewCategoryForm
+            addCategory={addCategory}
             setShowForm={setShowForm}
             className={showForm ? "detail detail_row_category" : "form_hidden"}
           />

@@ -11,21 +11,17 @@ const validationSchema = Yup.object().shape({
 export default function NewCategoryForm({
   setShowForm,
   inputClassName,
-  ...props
+  addCategory,
+  className,
 }) {
   return (
     <Formik
+      // onSubmit={addCategory}
       initialValues={{ name: "" }}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
     >
       {({ values, errors, touched, isSubmitting, resetForm }) => (
-        <Form {...props}>
+        <Form className={className}>
           <div className="cell form_cell">
             <Field className="form_input" type="text" name="name" />
             {errors.name && touched.name && errors.name}
@@ -34,8 +30,14 @@ export default function NewCategoryForm({
           <div className="cell form_cell">
             <button
               type="submit"
+              name="name"
               disabled={isSubmitting}
               className="form_input_button"
+              onClick={() => {
+                addCategory(values);
+                resetForm();
+                setShowForm(false);
+              }}
             >
               <IconCheckCircle height="100%" width="2rem" fill="green" />
             </button>
