@@ -6,6 +6,7 @@ import validateResourceMW from "./middleware/validateResourceMW.js";
 
 import { categorySchema } from "./models/category.js";
 import categoriesRouter from "./routes/categories.js";
+import resumeRouter from "./routes/resume.js";
 
 const app = express();
 
@@ -13,7 +14,10 @@ app.use(cors());
 app.use(express.json());
 app.use(logger);
 
+// Routes
+app.use("/api/resume", resumeRouter);
 app.use("/api/categories", categoriesRouter);
+
 //
 app.get("/", (req, res) => {
   res.send("<h1>hello world</h1>");
