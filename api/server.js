@@ -8,7 +8,7 @@ import { categorySchema } from "./models/category.js";
 
 const app = express();
 
-// app.use(cors);
+app.use(cors());
 app.use(express.json());
 app.use(logger);
 
@@ -17,6 +17,7 @@ const allCategories = [
   { id: 2, name: "clothes" },
   { id: 3, name: "rent" },
   { id: 4, name: "others" },
+  { id: 5, name: "home" },
 ];
 
 // Catergories routes //
@@ -31,7 +32,7 @@ app.post("/api/categories/", validateResourceMW(categorySchema), (req, res) => {
 });
 // Read categories
 app.get("/api/categories", (req, res) => {
-  res.status(200).send(allCategories);
+  res.status(200).json(allCategories);
 });
 // Update category
 app.put(
