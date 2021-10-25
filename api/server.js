@@ -2,9 +2,6 @@ import express from "express";
 import cors from "cors";
 
 import logger from "./middleware/logger.js";
-import validateResourceMW from "./middleware/validateResourceMW.js";
-
-import { categorySchema } from "./models/category.js";
 import categoriesRouter from "./routes/categories.js";
 import resumeRouter from "./routes/resume.js";
 

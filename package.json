@@ -18,7 +18,7 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
-  "proxy": "localhost:5000",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "client": "yarn start",
     "server": "nodemon --exec babel-node ./api/server.js",
