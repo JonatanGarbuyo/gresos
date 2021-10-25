@@ -8,7 +8,11 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required().min(3).max(24).label("Name"),
 });
 
-export default function NewCategoryForm({ setShowForm, ...props }) {
+export default function NewCategoryForm({
+  setShowForm,
+  inputClassName,
+  ...props
+}) {
   return (
     <Formik
       initialValues={{ name: "" }}

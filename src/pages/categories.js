@@ -1,26 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { useCategories } from "../hooks/useCategories";
+
 import NewCategoryForm from "../forms/newCategoryForm";
 import IconAdd from "../icons/iconAdd";
 import IconDelete from "../icons/iconDelete";
 import IconEdit from "../icons/iconEdit";
-import "./styles.css";
 
-const allCategories = [
-  { id: 1, title: "food" },
-  { id: 2, title: "clothes" },
-  { id: 3, title: "rent" },
-  { id: 4, title: "others" },
-];
+import "./styles.css";
 
 export default function Categories() {
   const [showForm, setShowForm] = useState(false);
-  const [categories, setCategories] = useState(allCategories);
-
-  const handleDeleteCategory = (id) => {
-    console.log("ID: ", id);
-    setCategories(categories.filter((income) => income.id !== id));
-  };
+  const [categories, deleteCategory] = useCategories();
 
   return (
     <main className="page_container">
@@ -49,10 +41,10 @@ export default function Categories() {
             inputClassName="form_cell"
           />
 
-          {categories.map(({ id, title }) => {
+          {categories.map(({ id, name }) => {
             return (
               <div className="detail detail_row_category" key={id}>
-                <li className="cell">{title}</li>
+                <li className="cell">{name}</li>
                 <li className="cell">
                   <Link to={`/edit/${id}`}>
                     <IconEdit
@@ -64,7 +56,7 @@ export default function Categories() {
                     />
                   </Link>
                   <IconDelete
-                    onClick={() => handleDeleteCategory(id)}
+                    onClick={() => deleteCategory(id)}
                     height={"100%"}
                     width={"1.5rem"}
                     fill="var(--primary)"
