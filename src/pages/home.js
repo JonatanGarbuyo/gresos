@@ -39,23 +39,24 @@ export default function Home() {
       <div className="resume">
         <h2 className="resume_title">Resume</h2>
         <ul className="detail detail_container">
-          <div className="detail detail_header">
-            <li className="detail cell_header">id</li>
-            <li className="detail cell_header">date</li>
-            <li className="detail cell_header">concept</li>
-            <li className="detail cell_header">category</li>
-            <li className="detail cell_header">type</li>
-            <li className="detail cell_header">amount</li>
+          <div className="detail detail_header detail_row_home">
+            <div className="detail cell_header">date</div>
+            <div className="detail cell_header">concept</div>
+            <div className="detail cell_header">category</div>
+            <div className="detail cell_header">type</div>
+            <div className="detail cell_header">amount</div>
           </div>
           {homeResume.lastOperations.map((operation) => {
             return (
-              <div className="detail detail_row" key={operation.id}>
-                <li className="cell">{operation.id}</li>
-                <li className="cell">{operation.date}</li>
-                <li className="cell">{operation.concept}</li>
-                <li className="cell">{operation.category}</li>
-                <li className="cell">{operation.type}</li>
-                <li className="cell">{operation.amount}</li>
+              <div
+                className="detail detail_row detail_row_home"
+                key={operation.id}
+              >
+                <div className="cell">{operation.date}</div>
+                <div className="cell">{operation.concept}</div>
+                <div className="cell">{operation.category}</div>
+                <div className="cell">{operation.type}</div>
+                <div className="cell">{operation.amount}</div>
               </div>
             );
           })}

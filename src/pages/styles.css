@@ -47,6 +47,10 @@
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(30px, auto);
 }
+.detail_row_home{
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(30px, auto);
+}
 
 .detail_row_category{
   grid-template-columns: 5fr 1fr;
