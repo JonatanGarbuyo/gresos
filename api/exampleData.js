@@ -1,7 +1,4 @@
 export const homeResume = {
-  Balance: "6,277.30",
-  "Total Expenses": "1,250.00",
-  "Total Income": "7,527.30",
   lastOperations: [
     {
       id: 10,
