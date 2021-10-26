@@ -44,7 +44,7 @@ transactionsRouter.put("/:id", (req, res) => {
 
   const transactionIndex = allTransactions.indexOf(transaction);
   allTransactions[transactionIndex] = newTransaction;
-  res.status(200);
+  res.status(200).send();
 });
 // Delete transaction
 transactionsRouter.delete("/:id", (req, res) => {
