@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useTransactions() {
+export function useExpense() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {

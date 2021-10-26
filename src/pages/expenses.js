@@ -1,8 +1,7 @@
 import "./styles.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
-import { useTransactions } from "../hooks/useTransactions";
+import { useExpense } from "../hooks/useExpense";
 
 import Card from "../components/card";
 import IconCreditCard from "../icons/iconCreditCard";
@@ -13,8 +12,7 @@ import NewEntryForm from "../forms/newEntryForm";
 
 export default function Expenses() {
   const [showForm, setShowForm] = useState(false);
-  const [expenses, deleteExpense, addExpense, expenseCategories] =
-    useTransactions();
+  const [expenses, deleteExpense, addExpense, expenseCategories] = useExpense();
 
   const totalExpenses = expenses.reduce((total, expense) => {
     total += parseFloat(expense.amount);
@@ -54,8 +52,8 @@ export default function Expenses() {
 
           <NewEntryForm
             addTransaction={addExpense}
-            allCategories={expenseCategories}
-            entryType="expense"
+            categories={expenseCategories}
+            transactionType="expense"
             className={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
           />

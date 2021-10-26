@@ -16,7 +16,11 @@ export default function NewCategoryForm({
 }) {
   return (
     <Formik
-      // onSubmit={addCategory}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        addCategory(values);
+        resetForm();
+        setSubmitting(false);
+      }}
       initialValues={{ name: "" }}
       validationSchema={validationSchema}
     >

@@ -65,12 +65,12 @@ export default function Income() {
         <h2 className="resume_title">Income</h2>
         <ul className="detail detail_container">
           <div className="detail detail_header">
-            <li className="detail cell_header">date</li>
-            <li className="detail cell_header">concept</li>
-            <li className="detail cell_header">category</li>
-            <li className="detail cell_header">type</li>
-            <li className="detail cell_header">amount</li>
-            <li className="detail cell_header"></li>
+            <div className="detail cell_header">date</div>
+            <div className="detail cell_header">concept</div>
+            <div className="detail cell_header">category</div>
+            <div className="detail cell_header">type</div>
+            <div className="detail cell_header">amount</div>
+            <div className="detail cell_header"></div>
           </div>
 
           <NewEntryForm

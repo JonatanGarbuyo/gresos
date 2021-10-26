@@ -1,46 +1,61 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import IconCheckCircle from "../icons/iconCheckCircle";
 import IconCrossCircle from "../icons/iconCrossCircle";
 
-const validationSchema = Yup.object().shape({
+const validationSchema = Yup.object({
   date: Yup.date().required().label("Date"),
-  concept: Yup.string().required().max(64).label("Concept"),
+  concept: Yup.string().min(3).required().max(64).label("Concept"),
   category: Yup.string().max(24).label("Category"),
   type: Yup.string().required().max(8).label("Type"),
   amount: Yup.number().required().label("Amount"),
 });
 
 export default function NewEntryForm({
-  entryType,
+  transactionType,
   setShowForm,
-  allCategories,
+  categories,
   addTransaction,
   className,
-  initialValues = {},
 }) {
   return (
-    <Formik validationSchema={validationSchema}>
+    <Formik
+      validationSchema={validationSchema}
+      initialValues={{
+        date: "",
+        concept: "",
+        category: "",
+        type: `${transactionType}`,
+        amount: "",
+      }}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        addTransaction(values);
+        setShowForm(false);
+        resetForm();
+        setSubmitting(false);
+      }}
+    >
       {({ values, errors, touched, isSubmitting, resetForm }) => (
         <Form className={className}>
           <div className="cell form_cell">
             <Field className="form_input" type="date" name="date" />
-            {errors.date && touched.date && errors.date}
+            <ErrorMessage name="date" />
           </div>
 
           <div className="cell form_cell">
             <Field className="form_input" type="text" name="concept" />
-            {errors.concept && touched.concept && errors.concept}
+            <ErrorMessage name="concept" />
           </div>
 
           <div className="cell form_cell">
             <Field as="select" className="form_input" name="category">
               <option></option>
-              {allCategories.map((category) => (
+              {categories.map((category) => (
                 <option key={category}>{category}</option>
               ))}
             </Field>
+            <ErrorMessage name="category" />
           </div>
 
           <div className="cell form_cell">
@@ -48,32 +63,35 @@ export default function NewEntryForm({
               className="form_input"
               type="text"
               name="type"
-              value={entryType}
               disabled={true}
             />
+            <ErrorMessage name="type" />
           </div>
 
           <div className="cell form_cell">
-            <Field className="form_input" type="number" name="amount" />
-            {errors.amount && touched.amount && errors.amount}
+            <Field
+              className="form_input"
+              type="number"
+              name="amount"
+              placeholder="0"
+            />
+            <ErrorMessage name="amount" />
           </div>
 
           <div className="cell form_cell">
-            <button
+            <Field
+              as="button"
               type="submit"
               disabled={isSubmitting}
               className="form_input_button"
-              onClick={() => {
-                addTransaction(values);
-                resetForm();
-                setShowForm(false);
-              }}
             >
               <IconCheckCircle height="100%" width="2rem" fill="green" />
-            </button>
+            </Field>
 
-            <button
+            <Field
+              as="button"
               type="reset"
+              id="reset"
               onClick={() => {
                 resetForm();
                 setShowForm(false);
@@ -81,7 +99,7 @@ export default function NewEntryForm({
               className="form_input_button"
             >
               <IconCrossCircle height="100%" width="2rem" fill="red" />
-            </button>
+            </Field>
           </div>
         </Form>
       )}
