@@ -10,8 +10,7 @@ export function useExpense() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    fetch("/api/transactions/expense")
-      .then((res) => res.json())
+    getAllTransaction("income")
       .then((data) => setExpenses(data))
       .catch((e) => console.log(e));
   }, []);
