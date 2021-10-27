@@ -39,5 +39,22 @@ export function useExpense() {
   const categories = expenses.map((expense) => expense.category);
   const expenseCategories = [...new Set(categories)];
 
-  return [expenses, deleteExpense, addExpense, expenseCategories];
+  const editTransaction = (transaction) =>
+    fetch(`/api/transactions`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(transaction),
+    })
+      .then((res) => res.json())
+      .catch((e) => console.log(e));
+
+  const editExpense = (expense) => {
+    editTransaction(expense).then((returnedExpense) =>
+      expenses.map((expense) =>
+        expense.id === returnedExpense.id ? returnedExpense : expense
+      )
+    );
+  };
+
+  return [expenses, deleteExpense, addExpense, editExpense, expenseCategories];
 }

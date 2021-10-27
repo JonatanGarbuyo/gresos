@@ -54,7 +54,7 @@ export default function Expenses() {
             addTransaction={addExpense}
             categories={expenseCategories}
             transactionType="expense"
-            className={showForm ? "detail detail_row" : "form_hidden"}
+            formClassName={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
           />
 

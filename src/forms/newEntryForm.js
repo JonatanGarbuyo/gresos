@@ -17,7 +17,7 @@ export default function NewEntryForm({
   setShowForm,
   categories,
   addTransaction,
-  className,
+  formClassName,
 }) {
   return (
     <Formik
@@ -37,7 +37,7 @@ export default function NewEntryForm({
       }}
     >
       {({ values, errors, touched, isSubmitting, resetForm }) => (
-        <Form className={className}>
+        <Form className={formClassName}>
           <div className="cell form_cell">
             <Field className="form_input" type="date" name="date" />
             <ErrorMessage name="date" />
