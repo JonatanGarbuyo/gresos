@@ -1,55 +1,33 @@
 import "./styles.css";
-import IconDollar from "../icons/iconDollar";
-import Card from "../components/card";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 
-import IconEdit from "../icons/iconEdit";
-import IconDelete from "../icons/iconDelete";
+import { useIncome } from "../hooks/useIncome";
+
+import Card from "../components/card";
+import IconDollar from "../icons/iconDollar";
 import IconAdd from "../icons/iconAdd";
 import NewEntryForm from "../forms/newEntryForm";
-
-const income = [
-  {
-    id: 6,
-    concept: "grandma gift",
-    amount: "200",
-    date: "october 7, 2021",
-    type: "income",
-    category: "",
-  },
-  {
-    id: 3,
-    concept: "paycheck",
-    amount: "2500",
-    date: "october 1, 2021",
-    type: "income",
-    category: "salary",
-  },
-];
+import DetailRow from "../components/detailRow";
 
 export default function Income() {
   const [showForm, setShowForm] = useState(false);
-  const [allIncome, setAllIncome] = useState(income);
+  const [activeEditForm, setActiveEditForm] = useState(null);
+  const [incomes, addIncome, deleteIncome, editIncome, incomeCategories] =
+    useIncome();
 
-  const totalIncome = allIncome.reduce((total, expense) => {
-    total += parseFloat(expense.amount);
+  const totalIncome = incomes.reduce((total, income) => {
+    total += parseFloat(income.amount);
     return total;
   }, 0);
-
-  const handleDeleteOperation = (id) => {
-    console.log("ID: ", id);
-    setAllIncome(allIncome.filter((income) => income.id !== id));
-  };
 
   return (
     <main className="page_container">
       <div className="card_container">
         <Card
-          amount={totalIncome}
+          amount={totalIncome.toFixed(2)}
           title="Total Income"
           Icon={IconDollar}
-        ></Card>
+        />
 
         <IconAdd
           alt="icon"
@@ -63,7 +41,7 @@ export default function Income() {
 
       <div className="resume">
         <h2 className="resume_title">Income</h2>
-        <ul className="detail detail_container">
+        <div className="detail detail_container">
           <div className="detail detail_header">
             <div className="detail cell_header">date</div>
             <div className="detail cell_header">concept</div>
@@ -74,44 +52,37 @@ export default function Income() {
           </div>
 
           <NewEntryForm
-            allCategories={allIncome.map((income) => income.category)}
-            entryType="income"
-            className={showForm ? "detail detail_row" : "form_hidden"}
+            onSubmit={addIncome}
+            categories={incomeCategories}
+            transactionType="income"
+            formClassName={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
-            inputClassName="cell form_cell"
           />
 
-          {allIncome.map(({ amount, category, concept, date, id, type }) => {
-            return (
-              <div className="detail detail_row" key={id}>
-                <li className="cell">{date}</li>
-                <li className="cell">{concept}</li>
-                <li className="cell">{category}</li>
-                <li className="cell">{type}</li>
-                <li className="cell">{amount}</li>
-                <li className="cell">
-                  <Link to={`/edit/${id}`}>
-                    <IconEdit
-                      height={"100%"}
-                      width={"1.5rem"}
-                      fill="var(--primary)"
-                      alt="icon"
-                      className="icon_edit"
-                    />
-                  </Link>
-                  <IconDelete
-                    onClick={() => handleDeleteOperation(id)}
-                    height={"100%"}
-                    width={"1.5rem"}
-                    fill="var(--primary)"
-                    alt="icon"
-                    className="icon_edit"
-                  />
-                </li>
-              </div>
+          {incomes.map((income) => {
+            return activeEditForm === income.id ? (
+              <NewEntryForm
+                key={income.id}
+                transactionType={income.type}
+                setShowForm={setActiveEditForm}
+                categories={incomeCategories}
+                onSubmit={editIncome}
+                formClassName="detail detail_row"
+                initialValues={income}
+              />
+            ) : (
+              <DetailRow
+                {...income}
+                key={income.id}
+                categories={incomeCategories}
+                onSubmit={editIncome}
+                deleteTransaction={deleteIncome}
+                activeEditForm={activeEditForm}
+                setActiveEditForm={setActiveEditForm}
+              />
             );
           })}
-        </ul>
+        </div>
       </div>
     </main>
   );

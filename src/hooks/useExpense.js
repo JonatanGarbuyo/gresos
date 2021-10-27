@@ -4,13 +4,14 @@ import {
   addTransaction,
   deleteTransaction,
   editTransaction,
+  getAllTransaction,
 } from "../services/transactions";
 
 export function useExpense() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    getAllTransaction("income")
+    getAllTransaction("expense")
       .then((data) => setExpenses(data))
       .catch((e) => console.log(e));
   }, []);
