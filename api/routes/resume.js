@@ -21,9 +21,9 @@ resumeRouter.get("/", (req, res) => {
   );
   const balance = totalIncome - totalExpenses;
 
-  homeResume["Balance"] = balance;
-  homeResume["Total Income"] = totalIncome;
-  homeResume["Total Expenses"] = totalExpenses;
+  homeResume["Balance"] = balance.toFixed(2);
+  homeResume["Total Income"] = totalIncome.toFixed(2);
+  homeResume["Total Expenses"] = totalExpenses.toFixed(2);
 
   res.status(200).json(homeResume);
 });
