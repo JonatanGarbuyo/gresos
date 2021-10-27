@@ -40,21 +40,19 @@ export function useExpense() {
   const expenseCategories = [...new Set(categories)];
 
   const editTransaction = (transaction) =>
-    fetch(`/api/transactions`, {
+    fetch(`/api/transactions/${transaction.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(transaction),
-    })
-      .then((res) => res.json())
-      .catch((e) => console.log(e));
+    }).catch((e) => console.log(e));
 
   const editExpense = (expense) => {
-    editTransaction(expense).then((returnedExpense) =>
-      expenses.map((expense) =>
-        expense.id === returnedExpense.id ? returnedExpense : expense
+    editTransaction(expense)
+      .then(() =>
+        setExpenses(expenses.map((e) => (e.id === expense.id ? expense : e)))
       )
-    );
+      .catch((e) => console.log(e));
   };
 
-  return [expenses, deleteExpense, addExpense, editExpense, expenseCategories];
+  return [expenses, addExpense, deleteExpense, editExpense, expenseCategories];
 }
