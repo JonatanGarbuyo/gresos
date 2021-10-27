@@ -16,28 +16,30 @@ export default function NewEntryForm({
   transactionType,
   setShowForm,
   categories,
-  addTransaction,
+  onSubmit,
   formClassName,
+  initialValues = {
+    date: "",
+    concept: "",
+    category: "",
+    type: `${transactionType}`,
+    amount: "",
+    id: "",
+  },
 }) {
   return (
     <Formik
       validationSchema={validationSchema}
-      initialValues={{
-        date: "",
-        concept: "",
-        category: "",
-        type: `${transactionType}`,
-        amount: "",
-      }}
+      initialValues={initialValues}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        addTransaction(values);
+        onSubmit(values);
         setShowForm(false);
         resetForm();
         setSubmitting(false);
       }}
     >
       {({ values, errors, touched, isSubmitting, resetForm }) => (
-        <Form className={formClassName}>
+        <Form key={values.id} className={formClassName}>
           <div className="cell form_cell">
             <Field className="form_input" type="date" name="date" />
             <ErrorMessage name="date" />
@@ -77,6 +79,7 @@ export default function NewEntryForm({
             />
             <ErrorMessage name="amount" />
           </div>
+          <Field id="id" name="id" type="hidden" value={values.id} />
 
           <div className="cell form_cell">
             <Field
