@@ -5,14 +5,15 @@ import { useExpense } from "../hooks/useExpense";
 
 import Card from "../components/card";
 import IconCreditCard from "../icons/iconCreditCard";
-import IconEdit from "../icons/iconEdit";
-import IconDelete from "../icons/iconDelete";
 import IconAdd from "../icons/iconAdd";
 import NewEntryForm from "../forms/newEntryForm";
+import DetailRow from "../components/detailRow";
 
 export default function Expenses() {
   const [showForm, setShowForm] = useState(false);
-  const [expenses, deleteExpense, addExpense, expenseCategories] = useExpense();
+  const [activeEditForm, setActiveEditForm] = useState(null);
+  const [expenses, addExpense, deleteExpense, editExpense, expenseCategories] =
+    useExpense();
 
   const totalExpenses = expenses.reduce((total, expense) => {
     total += parseFloat(expense.amount);
@@ -23,7 +24,7 @@ export default function Expenses() {
     <main className="page_container">
       <div className="card_container">
         <Card
-          amount={totalExpenses}
+          amount={totalExpenses.toFixed(2)}
           title="Total Expenses"
           Icon={IconCreditCard}
         />
@@ -51,40 +52,34 @@ export default function Expenses() {
           </div>
 
           <NewEntryForm
-            addTransaction={addExpense}
+            onSubmit={addExpense}
             categories={expenseCategories}
             transactionType="expense"
             formClassName={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
           />
 
-          {expenses.map(({ amount, category, concept, date, id, type }) => {
-            return (
-              <div className="detail detail_row" key={id}>
-                <div className="cell">{date}</div>
-                <div className="cell">{concept}</div>
-                <div className="cell">{category}</div>
-                <div className="cell">{type}</div>
-                <div className="cell">{amount}</div>
-                <div className="cell">
-                  <IconEdit
-                    // onClick={() => showEditForm(id)}
-                    height={"100%"}
-                    width={"1.5rem"}
-                    fill="var(--primary)"
-                    alt="icon"
-                    className="icon_edit"
-                  />
-                  <IconDelete
-                    onClick={() => deleteExpense(id)}
-                    height={"100%"}
-                    width={"1.5rem"}
-                    fill="var(--primary)"
-                    alt="icon"
-                    className="icon_edit"
-                  />
-                </div>
-              </div>
+          {expenses.map((expense) => {
+            return activeEditForm === expense.id ? (
+              <NewEntryForm
+                key={expense.id}
+                transactionType={expense.type}
+                setShowForm={setActiveEditForm}
+                categories={expenseCategories}
+                onSubmit={editExpense}
+                formClassName="detail detail_row"
+                initialValues={expense}
+              />
+            ) : (
+              <DetailRow
+                {...expense}
+                key={expense.id}
+                categories={expenseCategories}
+                onSubmit={editExpense}
+                deleteTransaction={deleteExpense}
+                activeEditForm={activeEditForm}
+                setActiveEditForm={setActiveEditForm}
+              />
             );
           })}
         </div>
