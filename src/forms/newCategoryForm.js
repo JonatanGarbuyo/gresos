@@ -9,45 +9,43 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function NewCategoryForm({
+  onSubmit,
   setShowForm,
-  inputClassName,
-  addCategory,
-  className,
+  initialValues = { name: "" },
+  formClassName,
 }) {
   return (
     <Formik
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        addCategory(values);
+        onSubmit(values);
         resetForm();
+        setShowForm(false);
         setSubmitting(false);
       }}
-      initialValues={{ name: "" }}
+      initialValues={initialValues}
       validationSchema={validationSchema}
     >
-      {({ values, errors, touched, isSubmitting, resetForm }) => (
-        <Form className={className}>
+      {({ values, isSubmitting, resetForm }) => (
+        <Form className={formClassName}>
           <div className="cell form_cell">
             <Field className="form_input" type="text" name="name" />
-            {errors.name && touched.name && errors.name}
+            <ErrorMessage name="name" />
           </div>
 
           <div className="cell form_cell">
-            <button
+            <Field
+              as="button"
               type="submit"
-              name="name"
               disabled={isSubmitting}
               className="form_input_button"
-              onClick={() => {
-                addCategory(values);
-                resetForm();
-                setShowForm(false);
-              }}
             >
               <IconCheckCircle height="100%" width="2rem" fill="green" />
-            </button>
+            </Field>
 
-            <button
+            <Field
+              as="button"
               type="reset"
+              id="reset"
               onClick={() => {
                 resetForm();
                 setShowForm(false);
@@ -55,7 +53,7 @@ export default function NewCategoryForm({
               className="form_input_button"
             >
               <IconCrossCircle height="100%" width="2rem" fill="red" />
-            </button>
+            </Field>
           </div>
         </Form>
       )}

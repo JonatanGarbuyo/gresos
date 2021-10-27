@@ -12,7 +12,9 @@ import "./styles.css";
 
 export default function Categories() {
   const [showForm, setShowForm] = useState(false);
-  const [categories, deleteCategory, addCategory] = useCategories();
+  const [activeEditForm, setActiveEditForm] = useState(null);
+  const [categories, addCategory, deleteCategory, editCategory] =
+    useCategories();
 
   return (
     <main className="page_container">
@@ -36,25 +38,36 @@ export default function Categories() {
           </div>
 
           <NewCategoryForm
-            addCategory={addCategory}
+            onSubmit={addCategory}
+            showForm={showForm}
             setShowForm={setShowForm}
-            className={showForm ? "detail detail_row_category" : "form_hidden"}
+            formClassName={
+              showForm ? "detail detail_row_category" : "form_hidden"
+            }
           />
 
           {categories.map(({ id, name }) => {
-            return (
+            return activeEditForm === id ? (
+              <NewCategoryForm
+                key={id}
+                initialValues={{ id, name }}
+                onSubmit={editCategory}
+                showForm={showForm}
+                setShowForm={setActiveEditForm}
+                formClassName="detail detail_row_category"
+              />
+            ) : (
               <div className="detail detail_row_category" key={id}>
                 <li className="cell">{name}</li>
                 <li className="cell">
-                  <Link to={`/edit/${id}`}>
-                    <IconEdit
-                      height={"100%"}
-                      width={"1.5rem"}
-                      fill="var(--primary)"
-                      alt="icon"
-                      className="icon_edit"
-                    />
-                  </Link>
+                  <IconEdit
+                    onClick={() => setActiveEditForm(id)}
+                    height={"100%"}
+                    width={"1.5rem"}
+                    fill="var(--primary)"
+                    alt="icon"
+                    className="icon_edit"
+                  />
                   <IconDelete
                     onClick={() => deleteCategory(id)}
                     height={"100%"}
