@@ -10,7 +10,7 @@ export function useCategories() {
       .catch((e) => console.log(e));
   }, []);
 
-  const deleteCategory = async (id) => {
+  const deleteCategory = (id) => {
     fetch(`/api/categories/${id}`, {
       method: "DELETE",
     })
@@ -18,7 +18,7 @@ export function useCategories() {
       .catch((e) => console.log(e));
   };
 
-  const addCategory = async (category) => {
+  const addCategory = (category) => {
     fetch(`/api/categories/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -31,5 +31,19 @@ export function useCategories() {
       .catch((e) => console.log(e));
   };
 
-  return [categories, deleteCategory, addCategory];
+  const editCategory = (category) => {
+    fetch(`/api/categories/${category.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(category),
+    })
+      .then(() =>
+        setCategories(
+          categories.map((c) => (c.id === category.id ? category : c))
+        )
+      )
+      .catch((e) => console.log(e));
+  };
+
+  return [categories, addCategory, deleteCategory, editCategory];
 }
