@@ -33,8 +33,8 @@ export default function NewEntryForm({
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         onSubmit(values);
-        setShowForm(false);
         resetForm();
+        setShowForm(false);
         setSubmitting(false);
       }}
     >
