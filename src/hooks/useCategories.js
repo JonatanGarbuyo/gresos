@@ -24,11 +24,16 @@ export function useCategories() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(category),
     })
-      .then((res) => res.json())
-      .then((returnedCategory) =>
-        setCategories(categories.concat(returnedCategory))
-      )
-      .catch((e) => console.log(e));
+      .then((res) => {
+        if (!res.ok && res.status === 409) {
+          alert("Category already exist");
+          return Promise.reject(new Error("Category already exist"));
+        } else return res.json();
+      })
+      .then((returnedCategory) => {
+        setCategories(categories.concat(returnedCategory));
+      })
+      .catch((e) => console.error(e));
   };
 
   const editCategory = (category) => {

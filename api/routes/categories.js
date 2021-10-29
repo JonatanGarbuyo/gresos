@@ -1,54 +1,63 @@
 import express from "express";
 
+import pool from "../database/db.js";
 import validateResourceMW from "../middleware/validateResourceMW.js";
 import { categorySchema } from "../models/category.js";
 
 const categoriesRouter = express.Router();
-
-const allCategories = [
-  { id: 1, name: "food" },
-  { id: 2, name: "clothes" },
-  { id: 3, name: "rent" },
-  { id: 4, name: "others" },
-  { id: 5, name: "home" },
-];
+const user_id = 1;
 
 // Catergories routes //
 // Create category
 categoriesRouter.post("/", validateResourceMW(categorySchema), (req, res) => {
-  const category = {
-    id: allCategories.length + 1,
-    name: req.body.name,
-  };
-  allCategories.push(category);
-  res.status(201).send(category);
+  const { name } = req.body;
+  let newCategory = { name, user_id }; // change to real userId
+  const query = "INSERT INTO categories set ?";
+  pool
+    .query(query, [newCategory])
+    .then((response) => {
+      res.status(201).send({ name, id: response.insertId });
+    })
+    .catch((err) => {
+      if (err.code && "ER_DUP_ENTRY" === err.code)
+        res.status(409).send({ error: "Category already exist" });
+      console.error("ERROR: ", err);
+    });
 });
-// Read categories
+
+// Read all categories
 categoriesRouter.get("/", (req, res) => {
-  res.status(200).json(allCategories);
+  const query =
+    "Select id, name FROM categories WHERE user_id = ? ORDER BY name";
+  pool
+    .query(query, [user_id])
+    .then((categories) => res.status(200).send(categories))
+    .catch((error) => console.error(error));
 });
+
 // Update category
 categoriesRouter.put("/:id", validateResourceMW(categorySchema), (req, res) => {
   // TODO validate id
-  const id = parseInt(req.params.id);
-
-  let category = allCategories.find((c) => c.id === id);
-  if (!category) res.status(404).send("Category not found");
-
-  const categoryIndex = allCategories.indexOf(category);
-  allCategories[categoryIndex].name = req.body.name;
-  res.status(200).send();
+  const { name } = req.body;
+  const { id } = req.params;
+  const query = "UPDATE categories SET name = ? WHERE id = ? AND user_id = ? ;";
+  pool
+    .query(query, [name, id, user_id])
+    .then((response) => res.status(200).send(response))
+    .catch((error) => console.error(error)); //TODO manejar error
 });
+
 // Delete category
 categoriesRouter.delete("/:id", (req, res) => {
-  // TODO validate id
-  const id = parseInt(req.params.id);
-
-  let category = allCategories.find((c) => c.id === id);
-  if (!category) res.status(404).send("Category not found");
-
-  allCategories.splice(allCategories.indexOf(category), 1);
-  res.status(200);
+  // TODO validate id ?
+  const { id } = req.params;
+  const query = "DELETE FROM categories WHERE id = ? and user_id = ?";
+  pool
+    .query(query, [id, user_id])
+    .then(res.status(200).send())
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 export default categoriesRouter;
