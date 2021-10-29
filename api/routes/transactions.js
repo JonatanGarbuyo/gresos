@@ -1,64 +1,73 @@
 import express from "express";
 
-import { homeResume } from "../exampleData.js";
+import pool from "../database/db.js";
+
 import validateResourceMW from "../middleware/validateResourceMW.js";
-// import { transactionSchema } from "../models/transaction.js";
+import { transactionSchema } from "../models/transaction.js";
 
 const transactionsRouter = express.Router();
+const user_id = 1;
 
-const allTransactions = homeResume.lastOperations;
+import { homeResume } from "../exampleData.js"; //////////////
+const allTransactions = homeResume.lastOperations; ////////////
 
 // Transactions routes //
 // Create transaction
-transactionsRouter.post("/", (req, res) => {
-  const transaction = req.body;
-  transaction.id = allTransactions.length + 1;
-
-  allTransactions.push(transaction);
-  res.status(201).send(transaction);
-});
+transactionsRouter.post(
+  "/",
+  validateResourceMW(transactionSchema),
+  (req, res) => {
+    const newTransaction = { ...req.body, user_id };
+    const query = "INSERT INTO transactions set ?";
+    pool
+      .query(query, [newTransaction])
+      .then((response) => {
+        res.status(201).send({ ...newTransaction, id: response.insertId });
+      })
+      .catch((err) => console.error("ERROR: ", err));
+  }
+);
 
 // Read all transactions
 transactionsRouter.get("/", (req, res) => {
-  res.status(200).json(allTransactions);
+  const query =
+    "Select * FROM transactions WHERE user_id = ? ORDER BY date DESC";
+  pool
+    .query(query, [user_id])
+    .then((transactions) => res.status(200).send(transactions))
+    .catch((error) => console.error(error));
 });
 // Read all ${type} transactions
 transactionsRouter.get("/:type", (req, res) => {
   const type = req.params.type;
-  const transactions = allTransactions.filter(
-    (transaction) => transaction.type === type
-  );
-  // if (transactions.length <= 0 ) res.status(404);
-  res.status(200).json(transactions);
+  const query =
+    "Select * FROM transactions WHERE user_id = ? and type = ?ORDER BY date DESC";
+  pool
+    .query(query, [user_id, type])
+    .then((transactions) => res.status(200).send(transactions))
+    .catch((error) => console.error(error));
 });
 
 // Update transaction
 transactionsRouter.put("/:id", (req, res) => {
-  // TODO validate id
-  const id = parseInt(req.params.id);
-  let transaction = allTransactions.find((t) => t.id === id);
-  if (!transaction) res.status(404).send("Transaction not found");
-
-  const newTransaction = { ...req.body, id: id };
-  newTransaction["type"] = transaction.type;
-
-  const transactionIndex = allTransactions.indexOf(transaction);
-  allTransactions[transactionIndex] = newTransaction;
-  res.status(200).send();
+  const { id } = req.params;
+  const { concept, amount, date, category_id } = req.body;
+  const transaction = { concept, amount, date, category_id };
+  const query = "UPDATE transactions set ? WHERE id = ? and user_id = ?";
+  pool
+    .query(query, [transaction, id, user_id])
+    .then(res.status(200).send())
+    .catch((error) => console.error(error));
 });
+
 // Delete transaction
 transactionsRouter.delete("/:id", (req, res) => {
-  // TODO validate id
-  const id = parseInt(req.params.id);
-
-  let transaction = allTransactions.find((c) => c.id === id);
-  if (!transaction) res.status(404).send("Transaction not found");
-
-  const transactionIndex = allTransactions.indexOf(transaction);
-  allTransactions.splice(transactionIndex, 1);
-
-  console.log("index: ", transactionIndex);
-  res.status(200).send();
+  const { id } = req.params;
+  const query = "DELETE FROM transactions WHERE id = ? and user_id = ?";
+  pool
+    .query(query, [id, user_id])
+    .then(res.status(200).send())
+    .catch((error) => console.error(error));
 });
 
 export default transactionsRouter;

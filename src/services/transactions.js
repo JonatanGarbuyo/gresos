@@ -9,7 +9,11 @@ export const addTransaction = (transaction) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(transaction),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(new Error("Unexpected error ocurred"));
+      } else return res.json();
+    })
     .catch((e) => console.log(e));
 
 export const editTransaction = (transaction) =>
