@@ -21,16 +21,19 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
-  "proxy": "http://localhost:5000",
   "scripts": {
     "client": "yarn start",
     "server": "nodemon --exec babel-node ./api/server.js ",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    
+    "pre:build": "rm -rf server-bundle.js && rm -rf build/",
+    "build": "yarn pre:build && babel server.js -o server-bundle.js && yarn build",
+    "serve": "cross-env NODE_ENV=production node server-bundle.js"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",

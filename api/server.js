@@ -1,6 +1,7 @@
 import {} from "dotenv/config";
 import express from "express";
 import cors from "cors";
+import * as path from "path";
 
 import logger from "./middleware/logger.js";
 import categoriesRouter from "./routes/categories.js";
@@ -19,10 +20,15 @@ app.use("/api/resume", resumeRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/transactions", transactionsRouter);
 
-//
-app.get("/", (req, res) => {
-  res.send("<h1>hello world</h1>");
-});
+if (process.env.NODE_ENV === "production") {
+  // Serve any static files
+  app.use("/", express.static(`${__dirname}/gresos/build`));
+
+  // Handle React routing, return all requests to React app
+  app.get("*", function (req, res) {
+    res.sendFile(`${__dirname}/gresos/build/index.html`);
+  });
+}
 
 // Route not found
 app.use((req, res) => {
