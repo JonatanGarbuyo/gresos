@@ -53,8 +53,6 @@
 }
 
 .detail_row_category{
-  color: black;
-  /* font-weight: 400; */
   grid-template-columns: 5fr 1fr;
   grid-auto-rows: minmax(30px, auto);
 }
@@ -86,6 +84,8 @@
 }
 
 .cell{
+  color: black;
+  /* font-weight: 400; */
   border-top: solid 1px var(--secondary);
   border-left: solid 1px var(--secondary);
   overflow: hidden;

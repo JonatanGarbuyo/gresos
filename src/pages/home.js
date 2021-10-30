@@ -32,12 +32,12 @@ export default function Home() {
         <Card amount={homeResume.Balance} title="Balance" Icon={IconDollar} />
         <Card
           amount={homeResume.total_month_expense}
-          title="Total Expenses"
+          title="Month Expenses"
           Icon={IconCreditCard}
         />
         <Card
           amount={homeResume.total_month_income}
-          title="Total Income"
+          title="Month Income"
           Icon={IconDollar}
         ></Card>
       </div>

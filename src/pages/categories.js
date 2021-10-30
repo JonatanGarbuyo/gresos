@@ -57,12 +57,14 @@ export default function Categories() {
                 formClassName="detail detail_row_category"
               />
             ) : (
-              <Link
+              <div
                 to={`/transactions/category/${id}`}
                 className="detail detail_row_category"
                 key={id}
               >
-                <div className="cell">{name}</div>
+                <Link to={`/transactions/category/${id}`} className="cell">
+                  {name}
+                </Link>
                 <div className="cell">
                   <IconEdit
                     onClick={() => setActiveEditForm(id)}
@@ -81,7 +83,7 @@ export default function Categories() {
                     className="icon_edit"
                   />
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>
