@@ -18,7 +18,7 @@ export default function DetailRow({
   const [category, setCategory] = useState({ name: "" });
   useEffect(() => {
     setCategory(categories.find((cat) => cat.id === parseInt(category_id)));
-  }, []);
+  }, [categories, category_id]);
 
   return (
     <div className="detail detail_row" key={id}>
