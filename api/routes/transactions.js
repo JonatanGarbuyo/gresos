@@ -8,16 +8,21 @@ import { transactionSchema } from "../models/transaction.js";
 const transactionsRouter = express.Router();
 const user_id = 1;
 
-import { homeResume } from "../exampleData.js"; //////////////
-const allTransactions = homeResume.lastOperations; ////////////
-
 // Transactions routes //
 // Create transaction
 transactionsRouter.post(
   "/",
   validateResourceMW(transactionSchema),
   (req, res) => {
-    const newTransaction = { ...req.body, user_id };
+    const { date, concept, category_id, type, amount } = req.body;
+    const newTransaction = {
+      date,
+      concept,
+      category_id,
+      type,
+      amount,
+      user_id,
+    };
     const query = "INSERT INTO transactions set ?";
     pool
       .query(query, [newTransaction])
@@ -31,7 +36,7 @@ transactionsRouter.post(
 // Read all transactions
 transactionsRouter.get("/", (req, res) => {
   const query =
-    "Select * FROM transactions WHERE user_id = ? ORDER BY date DESC";
+    "Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date FROM transactions WHERE user_id = ? ORDER BY date DESC";
   pool
     .query(query, [user_id])
     .then((transactions) => res.status(200).send(transactions))
@@ -41,7 +46,7 @@ transactionsRouter.get("/", (req, res) => {
 transactionsRouter.get("/:type", (req, res) => {
   const type = req.params.type;
   const query =
-    "Select * FROM transactions WHERE user_id = ? and type = ?ORDER BY date DESC";
+    "Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC";
   pool
     .query(query, [user_id, type])
     .then((transactions) => res.status(200).send(transactions))
