@@ -35,11 +35,16 @@ transactionsRouter.post(
 
 // Read all transactions
 transactionsRouter.get("/", (req, res) => {
-  const query =
-    "Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date FROM transactions WHERE user_id = ? ORDER BY date DESC";
+  const limit = parseInt(req.query.limit) || 100000000;
+  const query = `Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date 
+  FROM transactions WHERE user_id = ? ORDER BY date DESC LIMIT ? `;
+
   pool
-    .query(query, [user_id])
-    .then((transactions) => res.status(200).send(transactions))
+    .query(query, [user_id, limit])
+    .then((transactions) => {
+      console.log(transactions);
+      res.status(200).send(transactions);
+    })
     .catch((error) => console.error(error));
 });
 // Read all ${type} transactions

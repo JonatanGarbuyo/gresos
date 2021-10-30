@@ -7,30 +7,32 @@ import Card from "../components/card";
 import "./styles.css";
 
 export default function Home() {
-  const [homeResume, setHomeResume] = useState({ lastOperations: [] });
+  const [homeResume, setHomeResume] = useState({});
+  const [lastOperations, setLastOperations] = useState([]);
 
   useEffect(() => {
     fetch("/api/resume")
       .then((res) => res.json())
-      .then((data) => setHomeResume(data))
+      .then((data) => setHomeResume(data[0]))
+      .catch((e) => console.log(e));
+
+    fetch("/api/transactions/?limit=10")
+      .then((res) => res.json())
+      .then((lastTen) => setLastOperations(lastTen))
       .catch((e) => console.log(e));
   }, []);
 
   return (
     <main className="page_container">
       <div className="card_container">
+        <Card amount={homeResume.Balance} title="Balance" Icon={IconDollar} />
         <Card
-          amount={homeResume["Balance"]}
-          title="Balance"
-          Icon={IconDollar}
-        />
-        <Card
-          amount={homeResume["Total Expenses"]}
+          amount={homeResume.total_month_expense}
           title="Total Expenses"
           Icon={IconCreditCard}
         />
         <Card
-          amount={homeResume["Total Income"]}
+          amount={homeResume.total_month_income}
           title="Total Income"
           Icon={IconDollar}
         ></Card>
@@ -46,7 +48,7 @@ export default function Home() {
             <div className="detail cell_header">type</div>
             <div className="detail cell_header">amount</div>
           </div>
-          {homeResume.lastOperations.map((operation) => {
+          {lastOperations.map((operation) => {
             return (
               <div
                 className="detail detail_row detail_row_home"

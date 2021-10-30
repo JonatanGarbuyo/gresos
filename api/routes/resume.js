@@ -1,31 +1,28 @@
 import express from "express";
-import { homeResume } from "../exampleData.js";
+
+import pool from "../database/db.js";
+import validateResourceMW from "../middleware/validateResourceMW.js";
+import { categorySchema } from "../models/category.js";
 
 const resumeRouter = express.Router();
+const user_id = 1;
 
 // Resume //
 resumeRouter.get("/", (req, res) => {
-  const totalExpenses = homeResume.lastOperations.reduce(
-    (total, operation) =>
-      operation.type === "expense"
-        ? total + parseFloat(operation.amount)
-        : total,
-    0
-  );
-  const totalIncome = homeResume.lastOperations.reduce(
-    (total, operation) =>
-      operation.type === "income"
-        ? total + parseFloat(operation.amount)
-        : total,
-    0
-  );
-  const balance = totalIncome - totalExpenses;
+  const today = new Date();
+  const currentMonth = `${today.getFullYear()}-${today.getMonth() + 1}-01`;
 
-  homeResume["Balance"] = balance.toFixed(2);
-  homeResume["Total Income"] = totalIncome.toFixed(2);
-  homeResume["Total Expenses"] = totalExpenses.toFixed(2);
+  const query = `SELECT (total_income - total_expense) AS Balance, total_month_expense, total_month_income FROM
+  (SELECT SUM(amount) AS "total_expense" FROM transactions WHERE type = "expense" AND user_id = 1) as e,
+  (SELECT SUM(amount) AS "total_income" FROM transactions WHERE type = "income" AND user_id = 1) as i,
+  (SELECT SUM(amount) AS "total_month_expense" FROM transactions WHERE type = "expense" AND date >= ? AND user_id = 1) as emonth,
+  (SELECT SUM(amount) AS "total_month_income" FROM transactions WHERE type = "income" AND date >= ? AND user_id = 1) as imonth
+  `;
 
-  res.status(200).json(homeResume);
+  pool
+    .query(query, [currentMonth, currentMonth])
+    .then((response) => res.status(200).send(response))
+    .catch((error) => console.error(error));
 });
 
 export default resumeRouter;
