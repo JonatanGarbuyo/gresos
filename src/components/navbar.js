@@ -64,9 +64,9 @@ export default function Navbar({ hiddeNav, handleHiddeNav }) {
             Icon={IconSettings}
           />
         </li>
-        <li className="navbar_item">
+        {/* <li className="navbar_item">
           <NavItem destination="/logout" title="Logout" Icon={IconPower} />
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

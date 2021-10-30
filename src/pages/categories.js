@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { useCategories } from "../hooks/useCategories";
 
@@ -30,10 +31,10 @@ export default function Categories() {
 
       <div className="resume">
         <h2 className="resume_title">Categories</h2>
-        <ul className="detail detail_container">
+        <div className="detail detail_container">
           <div className="detail cell_header detail_row_category">
-            <li className="cell ">Name</li>
-            <li className="cell "></li>
+            <div className="cell ">Name</div>
+            <div className="cell "></div>
           </div>
 
           <NewCategoryForm
@@ -56,9 +57,13 @@ export default function Categories() {
                 formClassName="detail detail_row_category"
               />
             ) : (
-              <div className="detail detail_row_category" key={id}>
-                <li className="cell">{name}</li>
-                <li className="cell">
+              <Link
+                to={`/transactions/category/${id}`}
+                className="detail detail_row_category"
+                key={id}
+              >
+                <div className="cell">{name}</div>
+                <div className="cell">
                   <IconEdit
                     onClick={() => setActiveEditForm(id)}
                     height={"100%"}
@@ -75,11 +80,11 @@ export default function Categories() {
                     alt="icon"
                     className="icon_edit"
                   />
-                </li>
-              </div>
+                </div>
+              </Link>
             );
           })}
-        </ul>
+        </div>
       </div>
     </main>
   );

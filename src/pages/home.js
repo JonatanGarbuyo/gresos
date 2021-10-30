@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 
+import { useCategories } from "../hooks/useCategories";
+
 import IconCreditCard from "../icons/iconCreditCard";
 import IconDollar from "../icons/iconDollar";
+import DetailRow from "../components/detailRow";
 import Card from "../components/card";
 
 import "./styles.css";
@@ -9,6 +12,7 @@ import "./styles.css";
 export default function Home() {
   const [homeResume, setHomeResume] = useState({});
   const [lastOperations, setLastOperations] = useState([]);
+  const [categories] = useCategories();
 
   useEffect(() => {
     fetch("/api/resume")
@@ -50,16 +54,11 @@ export default function Home() {
           </div>
           {lastOperations.map((operation) => {
             return (
-              <div
-                className="detail detail_row detail_row_home"
+              <DetailRow
+                {...operation}
                 key={operation.id}
-              >
-                <div className="cell">{operation.date}</div>
-                <div className="cell">{operation.concept}</div>
-                <div className="cell">{operation.category}</div>
-                <div className="cell">{operation.type}</div>
-                <div className="cell">{operation.amount}</div>
-              </div>
+                categories={categories}
+              />
             );
           })}
         </ul>

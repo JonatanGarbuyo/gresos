@@ -10,6 +10,7 @@ import Expenses from "./pages/expenses";
 import Income from "./pages/income";
 import Categories from "./pages/categories";
 import Login from "./pages/login";
+import TransactionsByCategory from "./pages/transactionsByCategory";
 
 function App() {
   const [hiddeNav, setHiddeNav] = useState(false);
@@ -38,6 +39,9 @@ function App() {
                 </Route>
                 <Route path="/categories">
                   <Categories />
+                </Route>
+                <Route path="/transactions/category/:id">
+                  <TransactionsByCategory />
                 </Route>
 
                 <Route path="/">
