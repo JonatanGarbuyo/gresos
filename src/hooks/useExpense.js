@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCategories } from "./useCategories";
 
 import {
   addTransaction,
@@ -9,17 +10,21 @@ import {
 
 export function useExpense() {
   const [expenses, setExpenses] = useState([]);
+  const [categories] = useCategories();
 
   useEffect(() => {
     getAllTransaction("expense")
-      .then((data) => setExpenses(data))
+      .then((data) => {
+        setExpenses(data);
+      })
       .catch((e) => console.log(e));
   }, []);
 
   const addExpense = (expense) => {
-    addTransaction(expense).then((returnedExpense) =>
-      setExpenses((expenses) => expenses.concat(returnedExpense))
-    );
+    addTransaction(expense).then((returnedExpense) => {
+      console.log("returned: ", returnedExpense);
+      setExpenses((expenses) => expenses.concat(returnedExpense));
+    });
   };
 
   const deleteExpense = (id) => {
@@ -42,8 +47,5 @@ export function useExpense() {
       .catch((e) => console.log(e));
   };
 
-  const categories = expenses.map((expense) => expense.category);
-  const expenseCategories = [...new Set(categories)];
-
-  return [expenses, addExpense, deleteExpense, editExpense, expenseCategories];
+  return [expenses, addExpense, deleteExpense, editExpense, categories];
 }

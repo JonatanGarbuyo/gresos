@@ -12,7 +12,7 @@ import DetailRow from "../components/detailRow";
 export default function Income() {
   const [showForm, setShowForm] = useState(false);
   const [activeEditForm, setActiveEditForm] = useState(null);
-  const [incomes, addIncome, deleteIncome, editIncome, incomeCategories] =
+  const [incomes, addIncome, deleteIncome, editIncome, categories] =
     useIncome();
 
   const totalIncome = incomes.reduce((total, income) => {
@@ -53,7 +53,7 @@ export default function Income() {
 
           <NewEntryForm
             onSubmit={addIncome}
-            categories={incomeCategories}
+            categories={categories}
             transactionType="income"
             formClassName={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
@@ -65,7 +65,7 @@ export default function Income() {
                 key={income.id}
                 transactionType={income.type}
                 setShowForm={setActiveEditForm}
-                categories={incomeCategories}
+                categories={categories}
                 onSubmit={editIncome}
                 formClassName="detail detail_row"
                 initialValues={income}
@@ -74,7 +74,7 @@ export default function Income() {
               <DetailRow
                 {...income}
                 key={income.id}
-                categories={incomeCategories}
+                categories={categories}
                 onSubmit={editIncome}
                 deleteTransaction={deleteIncome}
                 activeEditForm={activeEditForm}

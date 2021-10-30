@@ -12,9 +12,10 @@ import DetailRow from "../components/detailRow";
 export default function Expenses() {
   const [showForm, setShowForm] = useState(false);
   const [activeEditForm, setActiveEditForm] = useState(null);
-  const [expenses, addExpense, deleteExpense, editExpense, expenseCategories] =
+  const [expenses, addExpense, deleteExpense, editExpense, categories] =
     useExpense();
 
+  console.log("EXPENSES:", expenses);
   const totalExpenses = expenses.reduce((total, expense) => {
     total += parseFloat(expense.amount);
     return total;
@@ -53,7 +54,7 @@ export default function Expenses() {
 
           <NewEntryForm
             onSubmit={addExpense}
-            categories={expenseCategories}
+            categories={categories}
             transactionType="expense"
             formClassName={showForm ? "detail detail_row" : "form_hidden"}
             setShowForm={setShowForm}
@@ -65,7 +66,7 @@ export default function Expenses() {
                 key={expense.id}
                 transactionType={expense.type}
                 setShowForm={setActiveEditForm}
-                categories={expenseCategories}
+                categories={categories}
                 onSubmit={editExpense}
                 formClassName="detail detail_row"
                 initialValues={expense}
@@ -74,7 +75,7 @@ export default function Expenses() {
               <DetailRow
                 {...expense}
                 key={expense.id}
-                categories={expenseCategories}
+                categories={categories}
                 onSubmit={editExpense}
                 deleteTransaction={deleteExpense}
                 activeEditForm={activeEditForm}

@@ -3,12 +3,18 @@ import { useEffect, useState } from "react";
 export function useCategories() {
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    fetch("/api/categories")
+  useEffect(
+    () =>
+      getAllCategories()
+        .then((data) => setCategories(data))
+        .catch((e) => console.log(e)),
+    []
+  );
+
+  const getAllCategories = () =>
+    fetch(`/api/categories`)
       .then((res) => res.json())
-      .then((data) => setCategories(data))
       .catch((e) => console.log(e));
-  }, []);
 
   const deleteCategory = (id) => {
     fetch(`/api/categories/${id}`, {
@@ -50,5 +56,11 @@ export function useCategories() {
       .catch((e) => console.log(e));
   };
 
-  return [categories, addCategory, deleteCategory, editCategory];
+  return [
+    categories,
+    addCategory,
+    deleteCategory,
+    editCategory,
+    getAllCategories,
+  ];
 }

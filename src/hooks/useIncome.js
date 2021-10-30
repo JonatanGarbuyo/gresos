@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCategories } from "./useCategories";
 
 import {
   addTransaction,
@@ -9,6 +10,7 @@ import {
 
 export function useIncome() {
   const [incomes, setIncome] = useState([]);
+  const [categories] = useCategories();
 
   useEffect(() => {
     getAllTransaction("income")
@@ -40,8 +42,5 @@ export function useIncome() {
       .catch((e) => console.log(e));
   };
 
-  const categories = incomes.map((income) => income.category);
-  const incomeCategories = [...new Set(categories)];
-
-  return [incomes, addIncome, deleteIncome, editIncome, incomeCategories];
+  return [incomes, addIncome, deleteIncome, editIncome, categories];
 }

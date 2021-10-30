@@ -7,7 +7,7 @@ import IconCrossCircle from "../icons/iconCrossCircle";
 const validationSchema = Yup.object({
   date: Yup.date().required().label("Date"),
   concept: Yup.string().min(3).required().max(64).label("Concept"),
-  category: Yup.string().max(24).label("Category"),
+  category_id: Yup.number().required().label("Category"),
   type: Yup.string().required().max(8).label("Type"),
   amount: Yup.number().required().label("Amount"),
 });
@@ -15,13 +15,13 @@ const validationSchema = Yup.object({
 export default function NewEntryForm({
   transactionType,
   setShowForm,
-  categories,
+  categories = [],
   onSubmit,
   formClassName,
   initialValues = {
     date: "",
     concept: "",
-    category: "",
+    category_id: "",
     type: `${transactionType}`,
     amount: "",
     id: "",
@@ -51,13 +51,15 @@ export default function NewEntryForm({
           </div>
 
           <div className="cell form_cell">
-            <Field as="select" className="form_input" name="category">
+            <Field as="select" className="form_input" name="category_id">
               <option></option>
               {categories.map((category) => (
-                <option key={category}>{category}</option>
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
               ))}
             </Field>
-            <ErrorMessage name="category" />
+            <ErrorMessage name="category_id" />
           </div>
 
           <div className="cell form_cell">
