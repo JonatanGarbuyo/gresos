@@ -33,7 +33,7 @@
     "eject": "react-scripts eject",
     
     "pre:build": "rm -rf server-bundle.js && rm -rf build/",
-    "build": "babel server.js -o server-bundle.js && yarn build",
+    "build": "babel ./api/server.js -o server-bundle.js && yarn build",
     "serve": "cross-env NODE_ENV=production node server-bundle.js"
   },
   "proxy": "http://localhost:5000",
