@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "An application for personal budget management.",
+  "engines": {
+    "node": "=12.22.1"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
