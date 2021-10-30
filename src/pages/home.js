@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 import { useCategories } from "../hooks/useCategories";
 
+import DetailRowHome from "../components/detailRowHome";
 import IconCreditCard from "../icons/iconCreditCard";
 import IconDollar from "../icons/iconDollar";
-import DetailRow from "../components/detailRow";
 import Card from "../components/card";
 
 import "./styles.css";
@@ -37,7 +37,7 @@ export default function Home() {
         />
         <Card
           amount={homeResume.total_month_income}
-          title="Month Income"
+          title="Monthy Income"
           Icon={IconDollar}
         ></Card>
       </div>
@@ -54,7 +54,7 @@ export default function Home() {
           </div>
           {lastOperations.map((operation) => {
             return (
-              <DetailRow
+              <DetailRowHome
                 {...operation}
                 key={operation.id}
                 categories={categories}
