@@ -27,3 +27,8 @@ export const getAllTransaction = (type = "") =>
   fetch(`/api/transactions/${type}`)
     .then((res) => res.json())
     .catch((e) => console.log(e));
+
+export const getAllTransactionByCategory = (id) =>
+  fetch(`/api/transactions/category/${id}`)
+    .then((res) => res.json())
+    .catch((e) => console.log(e));

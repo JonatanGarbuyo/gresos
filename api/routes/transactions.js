@@ -41,19 +41,27 @@ transactionsRouter.get("/", (req, res) => {
 
   pool
     .query(query, [user_id, limit])
-    .then((transactions) => {
-      console.log(transactions);
-      res.status(200).send(transactions);
-    })
+    .then((transactions) => res.status(200).send(transactions))
     .catch((error) => console.error(error));
 });
 // Read all ${type} transactions
 transactionsRouter.get("/:type", (req, res) => {
   const type = req.params.type;
   const query =
-    "Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC";
+    "SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC";
   pool
     .query(query, [user_id, type])
+    .then((transactions) => res.status(200).send(transactions))
+    .catch((error) => console.error(error));
+});
+// Read all transactions by category
+transactionsRouter.get("/category/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date 
+  FROM transactions WHERE user_id = ? and category_id = ? ORDER BY date DESC `;
+
+  pool
+    .query(query, [user_id, id])
     .then((transactions) => res.status(200).send(transactions))
     .catch((error) => console.error(error));
 });
