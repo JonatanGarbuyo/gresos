@@ -28,7 +28,7 @@
     "client": "yarn start",
     "server": "nodemon --exec babel-node ./api/server.js ",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "react-scripts start",
+    "start": "NODE_ENV=production react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     
