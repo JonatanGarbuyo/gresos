@@ -1,5 +1,7 @@
 "use strict";
 
+require("dotenv/config");
+
 var _express = require("express");
 
 var _express2 = _interopRequireDefault(_express);
@@ -7,10 +9,6 @@ var _express2 = _interopRequireDefault(_express);
 var _cors = require("cors");
 
 var _cors2 = _interopRequireDefault(_cors);
-
-var _logger = require("./middleware/logger.js");
-
-var _logger2 = _interopRequireDefault(_logger);
 
 var _categories = require("./routes/categories.js");
 
@@ -26,13 +24,11 @@ var _transactions2 = _interopRequireDefault(_transactions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import {} from "dotenv/config";
 var app = (0, _express2.default)();
 
 app.use((0, _cors2.default)());
 app.use(_express2.default.urlencoded({ extended: false }));
 app.use(_express2.default.json());
-app.use(_logger2.default);
 
 // Routes
 app.use("/api/resume", _resume2.default);
@@ -41,11 +37,11 @@ app.use("/api/transactions", _transactions2.default);
 
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
-  app.use("/", _express2.default.static(__dirname + "/gresos/build"));
+  app.use("/", _express2.default.static(__dirname + "/build"));
 
   // Handle React routing, return all requests to React app
   app.get("*", function (req, res) {
-    res.sendFile(__dirname + "/gresos/build/index.html");
+    res.sendFile(__dirname + "/build/index.html");
   });
 }
 

@@ -1,1 +1,1 @@
-web: node server-bundle.js
+web: node ./api/server-bundle.js
