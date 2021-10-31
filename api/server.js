@@ -2,7 +2,6 @@ import {} from "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-import logger from "./middleware/logger.js";
 import categoriesRouter from "./routes/categories.js";
 import resumeRouter from "./routes/resume.js";
 import transactionsRouter from "./routes/transactions.js";
@@ -12,7 +11,6 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(logger);
 
 // Routes
 app.use("/api/resume", resumeRouter);
