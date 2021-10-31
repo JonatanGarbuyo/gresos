@@ -1,7 +1,6 @@
-import {} from "dotenv/config";
+// import {} from "dotenv/config";
 import express from "express";
 import cors from "cors";
-import * as path from "path";
 
 import logger from "./middleware/logger.js";
 import categoriesRouter from "./routes/categories.js";
