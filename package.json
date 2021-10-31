@@ -2,6 +2,7 @@
   "name": "gresos",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "An application for personal budget management.",
   "engines": {
     "node": "=12.22.1"
@@ -31,9 +32,9 @@
     "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "react-scripts start",
     "react-build":"react-scripts build",
-    "pre:build": "rm -rf server-bundle.js && rm -rf build/",
-    "build": "yarn babel ./api/server.js -o ./api/server-bundle.js && yarn react-build",
-    "serve": "cross-env NODE_ENV=production node server-bundle.js"
+    "build": "npm run clean && npm run build-babel",
+    "build-babel": "yarn babel -d ./api-build ./api  && yarn react-build",
+    "clean": "rm -rf api-build && mkdir api-build"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
