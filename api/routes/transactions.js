@@ -27,7 +27,8 @@ transactionsRouter.post(
     pool
       .query(query, [newTransaction])
       .then((response) => {
-        res.status(201).send({ ...newTransaction, id: response.insertId });
+        newTransaction.id = response.insertId;
+        res.status(201).send(transactionResponse);
       })
       .catch((err) => console.error("ERROR: ", err));
   }
