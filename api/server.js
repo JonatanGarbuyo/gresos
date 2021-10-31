@@ -1,4 +1,4 @@
-// import {} from "dotenv/config";
+import {} from "dotenv/config";
 import express from "express";
 import cors from "cors";
 
@@ -21,11 +21,11 @@ app.use("/api/transactions", transactionsRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
-  app.use("/", express.static(`${__dirname}/gresos/build`));
+  app.use("/", express.static(`${__dirname}/build`));
 
   // Handle React routing, return all requests to React app
   app.get("*", function (req, res) {
-    res.sendFile(`${__dirname}/gresos/build/index.html`);
+    res.sendFile(`${__dirname}/build/index.html`);
   });
 }
 

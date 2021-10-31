@@ -25,15 +25,15 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "client": "yarn start",
     "server": "nodemon --exec babel-node ./api/server.js ",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "NODE_ENV=production react-scripts start",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    
+    "start": "react-scripts start",
+    "react-build":"react-scripts build",
     "pre:build": "rm -rf server-bundle.js && rm -rf build/",
-    "build": "yarn pre:build && babel ./api/server.js -o server-bundle.js && yarn build",
+    "build": "yarn babel ./api/server.js -o server-bundle.js && yarn react-build",
     "serve": "cross-env NODE_ENV=production node server-bundle.js"
   },
   "proxy": "http://localhost:5000",
@@ -60,6 +60,6 @@
     "babel-preset-env": "^1.7.0",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   }
 }
