@@ -1,6 +1,7 @@
 import {} from "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "path";
 
 import categoriesRouter from "./routes/categories.js";
 import resumeRouter from "./routes/resume.js";
@@ -19,11 +20,12 @@ app.use("/api/transactions", transactionsRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
-  app.use("/", express.static(`${__dirname}/build`));
+  app.use("/", express.static(`../build`));
+  app.use(express.static(path.join(__dirname, "../build")));
 
   // Handle React routing, return all requests to React app
   app.get("*", function (req, res) {
-    res.sendFile(`${__dirname}/build/index.html`);
+    res.sendFile(express.static(path.join(__dirname, "../build/index.html")));
   });
 }
 

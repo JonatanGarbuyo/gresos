@@ -37,11 +37,11 @@ app.use("/api/transactions", _transactions2.default);
 
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
-  app.use("/", _express2.default.static(__dirname + "/build"));
+  app.use("/", _express2.default.static("../build"));
 
   // Handle React routing, return all requests to React app
   app.get("*", function (req, res) {
-    res.sendFile(__dirname + "/build/index.html");
+    res.sendFile("../build/index.html");
   });
 }
 
