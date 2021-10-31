@@ -2,7 +2,6 @@
   "name": "gresos",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "description": "An application for personal budget management.",
   "engines": {
     "node": "=12.22.1"
