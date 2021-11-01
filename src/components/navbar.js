@@ -44,20 +44,20 @@ export default function Navbar({ hiddeNav, handleHiddeNav }) {
       </div>
 
       <ul className="navbar_item_list">
-        <li className="navbar_item">
+        <li className="navbar_item" onClick={handleHiddeNav}>
           <NavItem destination="/" title="Home" Icon={IconHome} />
         </li>
-        <li className="navbar_item">
+        <li className="navbar_item" onClick={handleHiddeNav}>
           <NavItem
             destination="/expenses"
             title="Expenses"
             Icon={IconCreditCard}
           />
         </li>
-        <li className="navbar_item">
+        <li className="navbar_item" onClick={handleHiddeNav}>
           <NavItem destination="/income" title="Income" Icon={IconDollar} />
         </li>
-        <li className="navbar_item">
+        <li className="navbar_item" onClick={handleHiddeNav}>
           <NavItem
             destination="/categories"
             title="Categories"
