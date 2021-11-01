@@ -31,12 +31,12 @@ export default function Home() {
       <div className="card_container">
         <Card amount={homeResume.Balance} title="Balance" Icon={IconDollar} />
         <Card
-          amount={homeResume.total_month_expense}
+          amount={homeResume.total_month_expense || 0}
           title="Month Expenses"
           Icon={IconCreditCard}
         />
         <Card
-          amount={homeResume.total_month_income}
+          amount={homeResume.total_month_income || 0}
           title="Monthy Income"
           Icon={IconDollar}
         ></Card>

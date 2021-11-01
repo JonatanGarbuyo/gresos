@@ -1,8 +1,6 @@
 import express from "express";
 
 import pool from "../database/db.js";
-import validateResourceMW from "../middleware/validateResourceMW.js";
-import { categorySchema } from "../models/category.js";
 
 const resumeRouter = express.Router();
 const user_id = 1;
@@ -21,7 +19,10 @@ resumeRouter.get("/", (req, res) => {
 
   pool
     .query(query, [currentMonth, currentMonth])
-    .then((response) => res.status(200).send(response))
+    .then((response) => {
+      console.log(response);
+      res.status(200).send(response);
+    })
     .catch((error) => console.error(error));
 });
 

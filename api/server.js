@@ -29,6 +29,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.use("/", express.static(`../build`));
+app.get("*", function (req, res) {
+  res.sendFile(express.static(path.join(__dirname, "/index.html")));
+});
+
 // Route not found
 app.use((req, res) => {
   res

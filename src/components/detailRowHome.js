@@ -9,7 +9,7 @@ export default function DetailRowHome({
   type,
   categories = [],
 }) {
-  // //la primera vezx que se renderiza no esta el array de objetos categories
+  //the first time it is rendered, the categories object array is missing
   const [category, setCategory] = useState({ name: "" });
   useEffect(() => {
     setCategory(categories.find((cat) => cat.id === parseInt(category_id)));

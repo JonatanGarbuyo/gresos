@@ -15,9 +15,7 @@ categoriesRouter.post("/", validateResourceMW(categorySchema), (req, res) => {
   const query = "INSERT INTO categories set ?";
   pool
     .query(query, [newCategory])
-    .then((response) => {
-      res.status(201).send({ name, id: response.insertId });
-    })
+    .then((response) => res.status(201).send({ name, id: response.insertId }))
     .catch((err) => {
       if (err.code && "ER_DUP_ENTRY" === err.code)
         res.status(409).send({ error: "Category already exist" });
@@ -44,12 +42,11 @@ categoriesRouter.put("/:id", validateResourceMW(categorySchema), (req, res) => {
   pool
     .query(query, [name, id, user_id])
     .then((response) => res.status(200).send(response))
-    .catch((error) => console.error(error)); //TODO manejar error
+    .catch((error) => console.error(error)); //TODO handle error
 });
 
 // Delete category
 categoriesRouter.delete("/:id", (req, res) => {
-  // TODO validate id ?
   const { id } = req.params;
   const query = "DELETE FROM categories WHERE id = ? and user_id = ?";
   pool

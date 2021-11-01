@@ -12,7 +12,7 @@ export default function NavItem({ destination = "#", title = "", Icon }) {
         alt="icon"
         className="icon"
       />
-      <Link to={`${destination}`} title={title}>
+      <Link to={`${destination}`} title={title} className="nav-bar-link">
         {title}
       </Link>
     </>

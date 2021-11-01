@@ -28,7 +28,7 @@ transactionsRouter.post(
       .query(query, [newTransaction])
       .then((response) => {
         newTransaction.id = response.insertId;
-        res.status(201).send(transactionResponse);
+        res.status(201).send(newTransaction);
       })
       .catch((err) => console.error("ERROR: ", err));
   }
@@ -57,6 +57,7 @@ transactionsRouter.get("/:type", (req, res) => {
 });
 // Read all transactions by category
 transactionsRouter.get("/category/:id", (req, res) => {
+  // this could by a query  /?category_id=3   const id = req.query.category_id
   const { id } = req.params;
   const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date 
   FROM transactions WHERE user_id = ? and category_id = ? ORDER BY date DESC `;
