@@ -14,6 +14,7 @@ export default function Home() {
   const [lastOperations, setLastOperations] = useState([]);
   const [categories] = useCategories();
 
+  // TODO add loading indication
   useEffect(() => {
     fetch("/api/resume")
       .then((res) => res.json())
@@ -29,14 +30,18 @@ export default function Home() {
   return (
     <main className="page_container">
       <div className="card_container">
-        <Card amount={homeResume.Balance} title="Balance" Icon={IconDollar} />
         <Card
-          amount={homeResume.total_month_expense || 0}
+          amount={homeResume.Balance || "00.0"}
+          title="Balance"
+          Icon={IconDollar}
+        />
+        <Card
+          amount={homeResume.total_month_expense || "00.0"}
           title="Month Expenses"
           Icon={IconCreditCard}
         />
         <Card
-          amount={homeResume.total_month_income || 0}
+          amount={homeResume.total_month_income || "00.0"}
           title="Monthy Income"
           Icon={IconDollar}
         ></Card>
