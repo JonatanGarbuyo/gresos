@@ -19,7 +19,7 @@ export default function NewCategoryForm({
       onSubmit={(values, { setSubmitting, resetForm }) => {
         onSubmit(values);
         resetForm();
-        setShowForm(false);
+        setShowForm(null);
         setSubmitting(false);
       }}
       initialValues={initialValues}
@@ -48,7 +48,7 @@ export default function NewCategoryForm({
               id="reset"
               onClick={() => {
                 resetForm();
-                setShowForm(false);
+                setShowForm(null);
               }}
               className="form_input_button"
             >

@@ -11,7 +11,6 @@ import IconEdit from "../icons/iconEdit";
 import "./styles.css";
 
 export default function Categories() {
-  const [showForm, setShowForm] = useState(false);
   const [activeEditForm, setActiveEditForm] = useState(null);
   const [categories, addCategory, deleteCategory, editCategory] =
     useCategories();
@@ -25,7 +24,7 @@ export default function Categories() {
           width={"2.5rem"}
           fill="green"
           className="addButton"
-          onClick={() => setShowForm(true)}
+          onClick={() => setActiveEditForm(0)}
         />
       </div>
 
@@ -39,10 +38,11 @@ export default function Categories() {
 
           <NewCategoryForm
             onSubmit={addCategory}
-            showForm={showForm}
-            setShowForm={setShowForm}
+            setShowForm={setActiveEditForm}
             formClassName={
-              showForm ? "detail detail_row_category" : "form_hidden"
+              activeEditForm === 0
+                ? "detail detail_row_category"
+                : "form_hidden"
             }
           />
 
@@ -52,7 +52,6 @@ export default function Categories() {
                 key={id}
                 initialValues={{ id, name }}
                 onSubmit={editCategory}
-                showForm={showForm}
                 setShowForm={setActiveEditForm}
                 formClassName="detail detail_row_category"
               />
