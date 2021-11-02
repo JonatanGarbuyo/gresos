@@ -10,7 +10,6 @@ import NewEntryForm from "../forms/newEntryForm";
 import DetailRow from "../components/detailRow";
 
 export default function Expenses() {
-  const [showForm, setShowForm] = useState(false);
   const [activeEditForm, setActiveEditForm] = useState(null);
   const [expenses, addExpense, deleteExpense, editExpense, categories] =
     useExpense();
@@ -36,7 +35,7 @@ export default function Expenses() {
           width={"2.5rem"}
           fill="green"
           className="addButton"
-          onClick={() => setShowForm(true)}
+          onClick={() => setActiveEditForm(0)}
         />
       </div>
 
@@ -56,8 +55,10 @@ export default function Expenses() {
             onSubmit={addExpense}
             categories={categories}
             transactionType="expense"
-            formClassName={showForm ? "detail detail_row" : "form_hidden"}
-            setShowForm={setShowForm}
+            formClassName={
+              activeEditForm === 0 ? "detail detail_row" : "form_hidden"
+            }
+            setShowForm={setActiveEditForm}
           />
 
           {expenses.map((expense) => {

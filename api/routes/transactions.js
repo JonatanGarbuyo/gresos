@@ -49,7 +49,7 @@ transactionsRouter.get("/", (req, res) => {
 transactionsRouter.get("/:type", (req, res) => {
   const type = req.params.type;
   const query =
-    "SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC";
+    "SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC";
   pool
     .query(query, [user_id, type])
     .then((transactions) => res.status(200).send(transactions))
