@@ -22,20 +22,12 @@ app.use("/api/transactions", transactionsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authUsersRouter);
 
-if (process.env.NODE_ENV === "production") {
-  // Serve any static files
-  app.use("/", express.static(`../build`));
-  app.use(express.static(path.join(__dirname, "../build")));
-
-  // Handle React routing, return all requests to React app
-  app.get("*", function (req, res) {
-    res.sendFile(express.static(path.join(__dirname, "../build/index.html")));
-  });
-}
-
 app.use("/", express.static(`../build`));
+app.use(express.static(path.join(__dirname, "../build")));
+
+// Handle React routing, return all requests to React app
 app.get("*", function (req, res) {
-  res.sendFile(express.static(path.join(__dirname, "/index.html")));
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 // Route not found
