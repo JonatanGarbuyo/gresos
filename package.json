@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "An application for personal budget management.",
+  "type": "module",
   "engines": {
     "node": "=12.22.1"
   },
