@@ -17,7 +17,7 @@
   border-radius: 10px;
   padding: 4rem;
   border: solid 1px var(--secondary);
-  margin: 4rem auto;
+  margin: 2rem auto 0.5rem auto;
   background-color: var(--secondary);
 }
 .user_form_avatar { 
@@ -67,16 +67,20 @@
 
 
 /* media queries */
-@media (max-width: 767px) {
+@media (max-width: 688px) {
   .user_form_container {
     margin: 0.5rem 0px;
     padding: 1rem;
   }
   .user_form_avatar {
     width: 7rem;
+    display: none;
   }
   .user_form{
     width: auto;
+  }
+  .user_form_label{
+    font-size: large;
   }
 
 }
