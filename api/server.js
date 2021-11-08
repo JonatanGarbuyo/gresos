@@ -6,6 +6,8 @@ import path from "path";
 import categoriesRouter from "./routes/categories.js";
 import resumeRouter from "./routes/resume.js";
 import transactionsRouter from "./routes/transactions.js";
+import usersRouter from "./routes/users.js";
+import authUsersRouter from "./routes/auth.js";
 
 const app = express();
 
@@ -17,6 +19,8 @@ app.use(express.json());
 app.use("/api/resume", resumeRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/transactions", transactionsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/auth", authUsersRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Serve any static files

@@ -37,7 +37,7 @@ transactionsRouter.post(
 // Read all transactions
 transactionsRouter.get("/", (req, res) => {
   const limit = parseInt(req.query.limit) || 100000000;
-  const query = `Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date 
+  const query = `Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date 
   FROM transactions WHERE user_id = ? ORDER BY date DESC LIMIT ? `;
 
   pool
@@ -48,8 +48,8 @@ transactionsRouter.get("/", (req, res) => {
 // Read all ${type} transactions
 transactionsRouter.get("/:type", (req, res) => {
   const type = req.params.type;
-  const query =
-    "SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC";
+  const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date 
+      FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC`;
   pool
     .query(query, [user_id, type])
     .then((transactions) => res.status(200).send(transactions))
@@ -59,7 +59,7 @@ transactionsRouter.get("/:type", (req, res) => {
 transactionsRouter.get("/category/:id", (req, res) => {
   // this could by a query  /?category_id=3   const id = req.query.category_id
   const { id } = req.params;
-  const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y/%m/%d') as date 
+  const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date 
   FROM transactions WHERE user_id = ? and category_id = ? ORDER BY date DESC `;
 
   pool

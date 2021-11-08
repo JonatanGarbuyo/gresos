@@ -1,6 +1,7 @@
 import "./navbar.css";
 
 import NavItem from "./navItem";
+import useUser from "../hooks/useUser";
 
 import IconHome from "../icons/IconHome";
 import IconCreditCard from "../icons/iconCreditCard";
@@ -12,6 +13,8 @@ import IconLogoGresos from "../icons/logoGresos";
 import userAvatar from "../images/user-account-avatar.png";
 
 export default function Navbar({ hiddeNav, handleHiddeNav }) {
+  const { logout } = useUser();
+
   return (
     <nav
       className="navbar"
@@ -64,9 +67,18 @@ export default function Navbar({ hiddeNav, handleHiddeNav }) {
             Icon={IconSettings}
           />
         </li>
-        {/* <li className="navbar_item">
-          <NavItem destination="/logout" title="Logout" Icon={IconPower} />
-        </li> */}
+        <li className="navbar_item">
+          <IconPower
+            height={"1.5rem"}
+            width={"1.5rem"}
+            fill="var(--secondary)"
+            alt="icon"
+            className="icon"
+          />
+          <a href="/login" onClick={() => logout()} className="nav-bar-link">
+            Logout
+          </a>
+        </li>
       </ul>
     </nav>
   );
