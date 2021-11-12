@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCategories } from "./useCategories";
+import useUser from "../hooks/useUser";
 
 import {
   addTransaction,
@@ -9,26 +9,29 @@ import {
 } from "../services/transactions";
 
 export function useExpense() {
+  const { jwt } = useUser();
   const [expenses, setExpenses] = useState([]);
-  const [categories] = useCategories();
 
-  useEffect(() => {
-    getAllTransaction("expense")
-      .then((data) => {
-        setExpenses(data);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  useEffect(
+    () =>
+      getAllExpenses()
+        .then((data) => setExpenses(data))
+        .catch((e) => console.log(e)),
+    []
+  );
+
+  const getAllExpenses = () =>
+    getAllTransaction("expense", jwt).catch((e) => console.log(e));
 
   const addExpense = (expense) => {
-    addTransaction(expense).then((returnedExpense) => {
+    addTransaction(expense, jwt).then((returnedExpense) => {
       console.log("returned: ", returnedExpense);
       setExpenses((expenses) => expenses.concat(returnedExpense));
     });
   };
 
   const deleteExpense = (id) => {
-    deleteTransaction(id)
+    deleteTransaction(id, jwt)
       .then(
         setExpenses((expenses) =>
           expenses.filter((expense) => expense.id !== id)
@@ -38,7 +41,7 @@ export function useExpense() {
   };
 
   const editExpense = (expense) => {
-    editTransaction(expense)
+    editTransaction(expense, jwt)
       .then(() =>
         setExpenses((expenses) =>
           expenses.map((e) => (e.id === expense.id ? expense : e))
@@ -47,5 +50,5 @@ export function useExpense() {
       .catch((e) => console.log(e));
   };
 
-  return [expenses, addExpense, deleteExpense, editExpense, categories];
+  return [expenses, addExpense, deleteExpense, editExpense];
 }

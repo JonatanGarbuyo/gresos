@@ -8,6 +8,7 @@ import resumeRouter from "./routes/resume.js";
 import transactionsRouter from "./routes/transactions.js";
 import usersRouter from "./routes/users.js";
 import authUsersRouter from "./routes/auth.js";
+import handleErrors from "./middleware/handleErrors.js";
 
 const app = express();
 
@@ -39,6 +40,8 @@ app.use((req, res) => {
     })
     .end();
 });
+
+app.use(handleErrors);
 
 const PORT = process.env.PORT || 5000;
 

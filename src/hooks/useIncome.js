@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCategories } from "./useCategories";
+import useUser from "../hooks/useUser";
 
 import {
   addTransaction,
@@ -9,14 +9,19 @@ import {
 } from "../services/transactions";
 
 export function useIncome() {
+  const { jwt } = useUser();
   const [incomes, setIncome] = useState([]);
-  const [categories] = useCategories();
 
-  useEffect(() => {
-    getAllTransaction("income")
-      .then((data) => setIncome(data))
-      .catch((e) => console.log(e));
-  }, []);
+  useEffect(
+    () =>
+      getAllIncome()
+        .then((data) => setIncome(data))
+        .catch((e) => console.log(e)),
+    []
+  );
+
+  const getAllIncome = () =>
+    getAllTransaction("income", jwt).catch((e) => console.log(e));
 
   const addIncome = (income) => {
     addTransaction(income).then((returnedIncome) =>
@@ -42,5 +47,5 @@ export function useIncome() {
       .catch((e) => console.log(e));
   };
 
-  return [incomes, addIncome, deleteIncome, editIncome, categories];
+  return [incomes, addIncome, deleteIncome, editIncome];
 }

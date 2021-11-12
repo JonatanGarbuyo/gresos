@@ -2,6 +2,7 @@ import "./styles.css";
 import { useState } from "react";
 
 import { useExpense } from "../hooks/useExpense";
+import { useCategories } from "../hooks/useCategories";
 
 import Card from "../components/card";
 import IconCreditCard from "../icons/iconCreditCard";
@@ -10,9 +11,9 @@ import NewEntryForm from "../forms/newEntryForm";
 import DetailRow from "../components/detailRow";
 
 export default function Expenses() {
+  const [expenses, addExpense, deleteExpense, editExpense] = useExpense();
+  const [categories] = useCategories();
   const [activeEditForm, setActiveEditForm] = useState(null);
-  const [expenses, addExpense, deleteExpense, editExpense, categories] =
-    useExpense();
 
   console.log("EXPENSES:", expenses);
   const totalExpenses = expenses.reduce((total, expense) => {

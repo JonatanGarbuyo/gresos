@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
+import useUser from "../hooks/useUser";
 import { useCategories } from "../hooks/useCategories";
+import { getLastOperations, getResume } from "../services/resume";
 
 import DetailRowHome from "../components/detailRowHome";
 import IconCreditCard from "../icons/iconCreditCard";
@@ -10,21 +12,15 @@ import Card from "../components/card";
 import "./styles.css";
 
 export default function Home() {
+  const { jwt } = useUser();
   const [homeResume, setHomeResume] = useState({});
   const [lastOperations, setLastOperations] = useState([]);
   const [categories] = useCategories();
 
   // TODO add loading indication
   useEffect(() => {
-    fetch("/api/resume")
-      .then((res) => res.json())
-      .then((data) => setHomeResume(data[0]))
-      .catch((e) => console.log(e));
-
-    fetch("/api/transactions/?limit=10")
-      .then((res) => res.json())
-      .then((lastTen) => setLastOperations(lastTen))
-      .catch((e) => console.log(e));
+    getResume(jwt).then((data) => setHomeResume(data[0]));
+    getLastOperations(jwt).then((lastTen) => setLastOperations(lastTen));
   }, []);
 
   return (

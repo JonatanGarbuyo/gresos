@@ -1,6 +1,7 @@
 import "./styles.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import useUser from "../hooks/useUser";
 
 import NewEntryForm from "../forms/newEntryForm";
 import DetailRow from "../components/detailRow";
@@ -12,13 +13,14 @@ import {
 import { useCategories } from "../hooks/useCategories";
 
 export default function TransactionsByCategory() {
+  const { jwt } = useUser();
   let { id } = useParams();
   const [activeEditForm, setActiveEditForm] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [categories] = useCategories();
 
   useEffect(() => {
-    getAllTransactionByCategory(id)
+    getAllTransactionByCategory(id, jwt)
       .then((data) => {
         setTransactions(data);
       })

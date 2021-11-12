@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
+import useUser from "./useUser";
+
 export function useCategories() {
+  const { jwt } = useUser();
   const [categories, setCategories] = useState([]);
 
   useEffect(
@@ -12,13 +15,21 @@ export function useCategories() {
   );
 
   const getAllCategories = () =>
-    fetch(`/api/categories`)
+    fetch(`/api/categories`, {
+      method: "GET",
+      headers: {
+        "x-auth-token": `bearer ${jwt}`,
+      },
+    })
       .then((res) => res.json())
       .catch((e) => console.log(e));
 
   const deleteCategory = (id) => {
     fetch(`/api/categories/${id}`, {
       method: "DELETE",
+      headers: {
+        "x-auth-token": `bearer ${jwt}`,
+      },
     })
       .then(setCategories(categories.filter((category) => category.id !== id)))
       .catch((e) => console.log(e));
@@ -27,7 +38,10 @@ export function useCategories() {
   const addCategory = (category) => {
     fetch(`/api/categories/`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-auth-token": `bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(category),
     })
       .then((res) => {
@@ -45,7 +59,10 @@ export function useCategories() {
   const editCategory = (category) => {
     fetch(`/api/categories/${category.id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": `bearer ${jwt}`,
+      },
       body: JSON.stringify(category),
     })
       .then(() =>

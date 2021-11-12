@@ -1,12 +1,18 @@
-export const deleteTransaction = (id) =>
+export const deleteTransaction = (id, jwt) =>
   fetch(`/api/transactions/${id}`, {
     method: "DELETE",
+    headers: {
+      "x-auth-token": `bearer ${jwt}`,
+    },
   }).catch((e) => console.log(e));
 
-export const addTransaction = (transaction) =>
+export const addTransaction = (transaction, jwt) =>
   fetch(`/api/transactions`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "x-auth-token": `bearer ${jwt}`,
+    },
     body: JSON.stringify(transaction),
   })
     .then((res) => {
@@ -16,19 +22,35 @@ export const addTransaction = (transaction) =>
     })
     .catch((e) => console.log(e));
 
-export const editTransaction = (transaction) =>
+export const editTransaction = (transaction, jwt) =>
   fetch(`/api/transactions/${transaction.id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "x-auth-token": `bearer ${jwt}`,
+    },
     body: JSON.stringify(transaction),
   }).catch((e) => console.log(e));
 
-export const getAllTransaction = (type = "") =>
-  fetch(`/api/transactions/${type}`)
+export const getAllTransaction = (type = "", jwt) =>
+  fetch(`/api/transactions/${type}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-auth-token": `bearer ${jwt}`,
+    },
+  })
     .then((res) => res.json())
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      return [];
+    });
 
-export const getAllTransactionByCategory = (id) =>
-  fetch(`/api/transactions/category/${id}`)
+export const getAllTransactionByCategory = (id, jwt) =>
+  fetch(`/api/transactions/category/${id}`, {
+    headers: {
+      "x-auth-token": `bearer ${jwt}`,
+    },
+  })
     .then((res) => res.json())
     .catch((e) => console.log(e));

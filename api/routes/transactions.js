@@ -1,19 +1,20 @@
 import express from "express";
 
 import pool from "../database/db.js";
+import userExtractor from "../middleware/userExtractor.js";
 
 import validateResourceMW from "../middleware/validateResourceMW.js";
 import { transactionSchema } from "../models/transaction.js";
 
 const transactionsRouter = express.Router();
-const user_id = 1;
 
 // Transactions routes //
 // Create transaction
 transactionsRouter.post(
   "/",
-  validateResourceMW(transactionSchema),
+  [userExtractor, validateResourceMW(transactionSchema)],
   (req, res) => {
+    const user_id = req.user_id;
     const { date, concept, category_id, type, amount } = req.body;
     const newTransaction = {
       date,
@@ -35,8 +36,9 @@ transactionsRouter.post(
 );
 
 // Read all transactions
-transactionsRouter.get("/", (req, res) => {
-  const limit = parseInt(req.query.limit) || 100000000;
+transactionsRouter.get("/", userExtractor, (req, res) => {
+  const user_id = req.user_id;
+  const limit = parseInt(req.query.limit) || 1000;
   const query = `Select id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date 
   FROM transactions WHERE user_id = ? ORDER BY date DESC LIMIT ? `;
 
@@ -45,8 +47,10 @@ transactionsRouter.get("/", (req, res) => {
     .then((transactions) => res.status(200).send(transactions))
     .catch((error) => console.error(error));
 });
+
 // Read all ${type} transactions
-transactionsRouter.get("/:type", (req, res) => {
+transactionsRouter.get("/:type", userExtractor, (req, res) => {
+  const user_id = req.user_id;
   const type = req.params.type;
   const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date 
       FROM transactions WHERE user_id = ? and type = ? ORDER BY date DESC`;
@@ -55,9 +59,11 @@ transactionsRouter.get("/:type", (req, res) => {
     .then((transactions) => res.status(200).send(transactions))
     .catch((error) => console.error(error));
 });
+
 // Read all transactions by category
-transactionsRouter.get("/category/:id", (req, res) => {
+transactionsRouter.get("/category/:id", userExtractor, (req, res) => {
   // this could by a query  /?category_id=3   const id = req.query.category_id
+  const user_id = req.user_id;
   const { id } = req.params;
   const query = `SELECT id, concept, type, amount, category_id, DATE_FORMAT(date, '%Y-%m-%d') as date 
   FROM transactions WHERE user_id = ? and category_id = ? ORDER BY date DESC `;
@@ -69,7 +75,8 @@ transactionsRouter.get("/category/:id", (req, res) => {
 });
 
 // Update transaction
-transactionsRouter.put("/:id", (req, res) => {
+transactionsRouter.put("/:id", userExtractor, (req, res) => {
+  const user_id = req.user_id;
   const { id } = req.params;
   const { concept, amount, date, category_id } = req.body;
   const transaction = { concept, amount, date, category_id };
@@ -81,7 +88,8 @@ transactionsRouter.put("/:id", (req, res) => {
 });
 
 // Delete transaction
-transactionsRouter.delete("/:id", (req, res) => {
+transactionsRouter.delete("/:id", userExtractor, (req, res) => {
+  const user_id = req.user_id;
   const { id } = req.params;
   const query = "DELETE FROM transactions WHERE id = ? and user_id = ?";
   pool

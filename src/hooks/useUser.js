@@ -13,7 +13,11 @@ export default function useUser() {
           window.sessionStorage.setItem("username", username);
           setJWT(token);
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+          window.sessionStorage.removeItem("jwt");
+          window.sessionStorage.removeItem("username");
+        });
     },
     [setJWT]
   );
@@ -25,6 +29,7 @@ export default function useUser() {
   }, [setJWT]);
 
   return {
+    jwt,
     isLogged: Boolean(jwt),
     login,
     logout,
