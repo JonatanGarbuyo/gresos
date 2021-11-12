@@ -28,13 +28,13 @@ export function useIncome() {
     getAllTransaction("income", jwt).catch((e) => console.log(e));
 
   const addIncome = (income) => {
-    addTransaction(income).then((returnedIncome) =>
+    addTransaction(income, jwt).then((returnedIncome) =>
       setIncome((incomes) => incomes.concat(returnedIncome))
     );
   };
 
   const deleteIncome = (id) => {
-    deleteTransaction(id)
+    deleteTransaction(id, jwt)
       .then(
         setIncome((incomes) => incomes.filter((income) => income.id !== id))
       )
@@ -42,7 +42,7 @@ export function useIncome() {
   };
 
   const editIncome = (income) => {
-    editTransaction(income)
+    editTransaction(income, jwt)
       .then(() =>
         setIncome((incomes) =>
           incomes.map((e) => (e.id === income.id ? income : e))
