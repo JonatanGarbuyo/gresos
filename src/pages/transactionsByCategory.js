@@ -11,25 +11,28 @@ import {
   getAllTransactionByCategory,
 } from "../services/transactions";
 import { useCategories } from "../hooks/useCategories";
+import Spinner from "../components/spinner";
 
 export default function TransactionsByCategory() {
-  const { jwt } = useUser();
   let { id } = useParams();
+  const { jwt } = useUser();
   const [activeEditForm, setActiveEditForm] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [categories] = useCategories();
+  const [isloading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getAllTransactionByCategory(id, jwt)
       .then((data) => {
         setTransactions(data);
+        setIsLoading(false);
       })
       .catch((e) => console.log(e));
   }, [id]);
 
   return (
     <main className="page_container">
-      <div className="card_container"></div>
+      <div className="card_container"> {isloading ? <Spinner /> : null}</div>
 
       <div className="resume">
         <h2 className="resume_title">Transactions</h2>

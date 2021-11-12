@@ -5,11 +5,15 @@ import useUser from "./useUser";
 export function useCategories() {
   const { jwt } = useUser();
   const [categories, setCategories] = useState([]);
+  const [isloading, setIsLoading] = useState(true);
 
   useEffect(
     () =>
       getAllCategories()
-        .then((data) => setCategories(data))
+        .then((data) => {
+          setCategories(data);
+          setIsLoading(false);
+        })
         .catch((e) => console.log(e)),
     []
   );
@@ -73,11 +77,5 @@ export function useCategories() {
       .catch((e) => console.log(e));
   };
 
-  return [
-    categories,
-    addCategory,
-    deleteCategory,
-    editCategory,
-    getAllCategories,
-  ];
+  return [categories, addCategory, deleteCategory, editCategory, isloading];
 }

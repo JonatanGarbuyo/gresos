@@ -11,11 +11,15 @@ import {
 export function useExpense() {
   const { jwt } = useUser();
   const [expenses, setExpenses] = useState([]);
+  const [isloading, setIsLoading] = useState(true);
 
   useEffect(
     () =>
       getAllExpenses()
-        .then((data) => setExpenses(data))
+        .then((data) => {
+          setExpenses(data);
+          setIsLoading(false);
+        })
         .catch((e) => console.log(e)),
     []
   );
@@ -50,5 +54,5 @@ export function useExpense() {
       .catch((e) => console.log(e));
   };
 
-  return [expenses, addExpense, deleteExpense, editExpense];
+  return [expenses, addExpense, deleteExpense, editExpense, isloading];
 }

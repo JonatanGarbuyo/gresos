@@ -2,18 +2,20 @@ import "./styles.css";
 import { useState } from "react";
 
 import { useIncome } from "../hooks/useIncome";
+import { useCategories } from "../hooks/useCategories";
 
 import Card from "../components/card";
 import IconDollar from "../icons/iconDollar";
 import IconAdd from "../icons/iconAdd";
 import NewEntryForm from "../forms/newEntryForm";
 import DetailRow from "../components/detailRow";
+import Spinner from "../components/spinner";
 
 export default function Income() {
   const [showForm, setShowForm] = useState(false);
   const [activeEditForm, setActiveEditForm] = useState(null);
-  const [incomes, addIncome, deleteIncome, editIncome, categories] =
-    useIncome();
+  const [categories] = useCategories();
+  const [incomes, addIncome, deleteIncome, editIncome, isloading] = useIncome();
 
   const totalIncome = incomes.reduce((total, income) => {
     total += parseFloat(income.amount);
@@ -23,20 +25,25 @@ export default function Income() {
   return (
     <main className="page_container">
       <div className="card_container">
-        <Card
-          amount={totalIncome.toFixed(2)}
-          title="Total Income"
-          Icon={IconDollar}
-        />
-
-        <IconAdd
-          alt="icon"
-          height={"2.5rem"}
-          width={"2.5rem"}
-          fill="green"
-          className="addButton"
-          onClick={() => setShowForm(true)}
-        />
+        {isloading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Card
+              amount={totalIncome.toFixed(2)}
+              title="Total Income"
+              Icon={IconDollar}
+            />
+            <IconAdd
+              alt="icon"
+              height={"2.5rem"}
+              width={"2.5rem"}
+              fill="green"
+              className="addButton"
+              onClick={() => setShowForm(true)}
+            />
+          </>
+        )}
       </div>
 
       <div className="resume">

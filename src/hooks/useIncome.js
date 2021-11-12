@@ -11,11 +11,15 @@ import {
 export function useIncome() {
   const { jwt } = useUser();
   const [incomes, setIncome] = useState([]);
+  const [isloading, setIsLoading] = useState(true);
 
   useEffect(
     () =>
       getAllIncome()
-        .then((data) => setIncome(data))
+        .then((data) => {
+          setIncome(data);
+          setIsLoading(false);
+        })
         .catch((e) => console.log(e)),
     []
   );
@@ -47,5 +51,5 @@ export function useIncome() {
       .catch((e) => console.log(e));
   };
 
-  return [incomes, addIncome, deleteIncome, editIncome];
+  return [incomes, addIncome, deleteIncome, editIncome, isloading];
 }

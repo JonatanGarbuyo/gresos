@@ -9,15 +9,17 @@ import IconDelete from "../icons/iconDelete";
 import IconEdit from "../icons/iconEdit";
 
 import "./styles.css";
+import Spinner from "../components/spinner";
 
 export default function Categories() {
   const [activeEditForm, setActiveEditForm] = useState(null);
-  const [categories, addCategory, deleteCategory, editCategory] =
+  const [categories, addCategory, deleteCategory, editCategory, isloading] =
     useCategories();
 
   return (
     <main className="page_container">
       <div className="card_container card_container_categories">
+        {isloading ? <Spinner /> : null}
         <IconAdd
           alt="icon"
           height={"2.5rem"}

@@ -9,13 +9,14 @@ import IconCreditCard from "../icons/iconCreditCard";
 import IconAdd from "../icons/iconAdd";
 import NewEntryForm from "../forms/newEntryForm";
 import DetailRow from "../components/detailRow";
+import Spinner from "../components/spinner";
 
 export default function Expenses() {
-  const [expenses, addExpense, deleteExpense, editExpense] = useExpense();
+  const [expenses, addExpense, deleteExpense, editExpense, isLoading] =
+    useExpense();
   const [categories] = useCategories();
   const [activeEditForm, setActiveEditForm] = useState(null);
 
-  console.log("EXPENSES:", expenses);
   const totalExpenses = expenses.reduce((total, expense) => {
     total += parseFloat(expense.amount);
     return total;
@@ -24,20 +25,25 @@ export default function Expenses() {
   return (
     <main className="page_container">
       <div className="card_container">
-        <Card
-          amount={totalExpenses.toFixed(2)}
-          title="Total Expenses"
-          Icon={IconCreditCard}
-        />
-
-        <IconAdd
-          alt="icon"
-          height={"2.5rem"}
-          width={"2.5rem"}
-          fill="green"
-          className="addButton"
-          onClick={() => setActiveEditForm(0)}
-        />
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Card
+              amount={totalExpenses.toFixed(2)}
+              title="Total Expenses"
+              Icon={IconCreditCard}
+            />
+            <IconAdd
+              alt="icon"
+              height={"2.5rem"}
+              width={"2.5rem"}
+              fill="green"
+              className="addButton"
+              onClick={() => setActiveEditForm(0)}
+            />
+          </>
+        )}
       </div>
 
       <div className="resume">

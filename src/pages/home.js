@@ -10,37 +10,48 @@ import IconDollar from "../icons/iconDollar";
 import Card from "../components/card";
 
 import "./styles.css";
+import Spinner from "../components/spinner";
 
 export default function Home() {
   const { jwt } = useUser();
   const [homeResume, setHomeResume] = useState({});
   const [lastOperations, setLastOperations] = useState([]);
   const [categories] = useCategories();
+  const [isloading, setIsLoading] = useState(true);
 
   // TODO add loading indication
   useEffect(() => {
     getResume(jwt).then((data) => setHomeResume(data[0]));
-    getLastOperations(jwt).then((lastTen) => setLastOperations(lastTen));
+    getLastOperations(jwt).then((lastTen) => {
+      setLastOperations(lastTen);
+      setIsLoading(false);
+    });
   }, []);
 
   return (
     <main className="page_container">
       <div className="card_container">
-        <Card
-          amount={homeResume.Balance || "00.0"}
-          title="Balance"
-          Icon={IconDollar}
-        />
-        <Card
-          amount={homeResume.total_month_expense || "00.0"}
-          title="Month Expenses"
-          Icon={IconCreditCard}
-        />
-        <Card
-          amount={homeResume.total_month_income || "00.0"}
-          title="Monthy Income"
-          Icon={IconDollar}
-        ></Card>
+        {isloading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Card
+              amount={homeResume.Balance || "00.0"}
+              title="Balance"
+              Icon={IconDollar}
+            />
+            <Card
+              amount={homeResume.total_month_expense || "00.0"}
+              title="Month Expenses"
+              Icon={IconCreditCard}
+            />
+            <Card
+              amount={homeResume.total_month_income || "00.0"}
+              title="Monthy Income"
+              Icon={IconDollar}
+            ></Card>
+          </>
+        )}
       </div>
 
       <div className="resume">
